@@ -166,6 +166,8 @@ input[type=range]{width:160px;padding:0;accent-color:var(--pk);background:none;b
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
+window.addEventListener('error',e=>{const l=document.getElementById('ld');if(l&&l.style.opacity!=='0'){const sp=l.querySelector('span');if(sp)sp.textContent='Something went wrong while loading: '+(e.message||'unknown error')+'. Try refreshing, or send a screenshot of this.'}});
+setTimeout(()=>{const l=document.getElementById('ld');if(l&&l.style.opacity!=='0'&&typeof THREE==='undefined'){const sp=l.querySelector('span');if(sp)sp.textContent='Could not download the 3D engine. Check your internet connection and refresh.'}},8000);
 // ================= MULTIPLAYER SETUP =================
 // Paste the firebaseConfig values from your Firebase project here (see the setup guide).
 // Until this is filled in, the game runs as a single-player game.
@@ -318,7 +320,8 @@ addEventListener('resize',rs);addEventListener('orientationchange',()=>setTimeou
 sc.add(new THREE.HemisphereLight(0xffffff,0x5a8a50,.95));const sun=new THREE.DirectionalLight(0xfff2cc,.9);sun.castShadow=!!QP[QL].sh;sun.shadow.mapSize.set(QL==='high'?2048:1024,QL==='high'?2048:1024);Object.assign(sun.shadow.camera,{left:-35,right:35,top:35,bottom:-35,far:150});sun.position.set(40,60,20);sc.add(sun,sun.target);{const rm=new THREE.DirectionalLight(0xa8c8ff,.35);rm.position.set(-30,25,-40);sc.add(rm)}
 let TN=0;
 const AN=Math.min(8,R.capabilities.getMaxAnisotropy?R.capabilities.getMaxAnisotropy():1);
-function ctex(w,h,f,rx,ry){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');f(x,w,h);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx||1,ry||rx||1);t.anisotropy=AN;t.userData.keep=1;return t}
+const KP=o=>{if(!o.userData)o.userData={};o.userData.keep=1;return o};
+function ctex(w,h,f,rx,ry){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');f(x,w,h);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx||1,ry||rx||1);t.anisotropy=AN;KP(t);return t}
 const rnd=Math.random,lum=(x,l,a)=>{x.fillStyle='rgba('+l+','+l+','+l+','+(a||1)+')'};
 const TX={
  grass:ctex(256,256,(x,w,h)=>{x.fillStyle='#e9efe2';x.fillRect(0,0,w,h);for(let i=0;i<2600;i++){const l=170+rnd()*85|0,px=rnd()*w,py=rnd()*h,len=3+rnd()*6;x.strokeStyle='rgb('+(l-25)+','+l+','+(l-45)+')';x.lineWidth=1+rnd();x.beginPath();x.moveTo(px,py);x.lineTo(px+(rnd()-.5)*3,py-len);x.stroke()}for(let i=0;i<60;i++){lum(x,255,.10);x.beginPath();x.arc(rnd()*w,rnd()*h,6+rnd()*18,0,7);x.fill()}},70),
@@ -375,7 +378,7 @@ function fin(m,t){const k=t.k,A=(g,c,x,y,z,a,b,d)=>S(g,c,x,y,z,m,a,b,d),ac=t.el!
   [[-.38,.7],[.38,.7],[-.38,-.7],[.38,-.7]].forEach(l=>[-1,0,1].forEach(j=>A(CN(.025,.1),0xf4f1e8,l[0]+j*.07,.03,l[1]+.2).rotation.x=1.57));
   if(t.e==='p')[-1,1].forEach(q=>A(CN(.09,.34),0xffb3c1,q*.32,1.98,1.02))}
  const sh=new THREE.Mesh(new THREE.CircleGeometry(k==='d'?1.6:1.15,22),new THREE.MeshBasicMaterial({color:0,transparent:true,opacity:.3,depthWrite:false}));sh.rotation.x=-Math.PI/2;sh.position.y=.03;m.add(sh)}
-const FR=new THREE.ConeGeometry(.04,.26,4);FR.translate(0,.13,0);const HF=new THREE.ConeGeometry(.025,.16,4);HF.translate(0,.08,0);FR.userData.keep=HF.userData.keep=1;
+const FR=new THREE.ConeGeometry(.04,.26,4);FR.translate(0,.13,0);const HF=new THREE.ConeGeometry(.025,.16,4);HF.translate(0,.08,0);KP(FR);KP(HF);
 function fw(g,q,c,d){for(let r=0;r<3;r++)for(let i=0;i<7;i++){const a=(i-3)*.17+r*.04,L=(1.25-Math.abs(i-3)*.09)*(1-r*.22),f=new THREE.Group();f.rotation.y=-q*a;f.position.y=-r*.03;f.rotation.z=q*(.12+r*.05);S(SG(1),r?c:d,q*L/2,0,0,f,L/2,.025,.1+r*.015);g.add(f)}}
 function tufts(m,R,geo,c1,c2,sh,tilt){const n=R.reduce((a,r)=>a+r[6],0),im=new THREE.InstancedMesh(geo,new THREE.MeshPhongMaterial({color:0xffffff,shininess:sh}),n),d=new THREE.Object3D(),c=new THREE.Color(),a1=new THREE.Color(c1),a2=new THREE.Color(c2),up=new THREE.Vector3(0,1,0);let i=0;
  R.forEach(r=>{for(let j=0;j<r[6];j++){const u=Math.random()*6.283,v=r[7]?Math.random()*r[7]:Math.acos(2*Math.random()-1),nx=Math.sin(v)*Math.cos(u),ny=Math.cos(v),nz=Math.sin(v)*Math.sin(u);d.position.set(r[0]+nx*r[3],r[1]+ny*r[4],r[2]+nz*r[5]);
@@ -593,11 +596,11 @@ function loop(){const dt=Math.min(clock.getDelta(),.05),T0=clock.elapsedTime,K=(
  cam.lookAt(fo);R.render(sc,cam);if(TOUCH){const on=mode!=='play';TJ.classList.toggle('h',on);TR.classList.toggle('h',on);TD.classList.toggle('h',on)}
  KC.forEach(e=>{const q=e.dataset.k;e.classList.toggle('on',q==='shift'?runOn:!!(k[q]||k[AL[q]]))});requestAnimationFrame(loop)}
 let score=0,wins=0,best=0,dex={},AC=null,musOn=SET.mus?1:0,db=null,U=null,me=null,room=null,peers=[],mi=0,duel=null,aw=0,t0=0,TL=12000,parts=[];
-const PG=new THREE.SphereGeometry(.12,6,6);PG.userData.keep=1;const PMT=c=>{const m=new THREE.MeshBasicMaterial({color:c});m.userData.keep=1;return m},PM=[0xffe14d,0xff5d8f,0x5ee0ff].map(PMT),PMD=PMT(0xe8dcc0),PMC=PMT(0x9ff3ff);
+const PG=KP(new THREE.SphereGeometry(.12,6,6));const PMT=c=>KP(new THREE.MeshBasicMaterial({color:c})),PM=[0xffe14d,0xff5d8f,0x5ee0ff].map(PMT),PMD=PMT(0xe8dcc0),PMC=PMT(0x9ff3ff);
 function burst(p,n,mats){n=n||QP[QL].p;mats=mats||PM;for(let i=0;i<n&&parts.length<400;i++){const m=new THREE.Mesh(PG,mats[i%mats.length]);m.position.copy(p);m.position.y+=1;sc.add(m);parts.push({m,v:new THREE.Vector3(Math.random()*6-3,Math.random()*6+2,Math.random()*6-3),l:1.2,L:1.2,g:6,s:1})}}
 function dust(p){if(parts.length>380)return;const m=new THREE.Mesh(PG,PMD);m.position.set(p.x+(Math.random()-.5)*.7,.15,p.z+(Math.random()-.5)*.7);sc.add(m);parts.push({m,v:new THREE.Vector3(Math.random()-.5,1+Math.random(),Math.random()-.5),l:.5,L:.5,g:2,s:1.8})}
 function trail(p){if(parts.length>380)return;const m=new THREE.Mesh(PG,PMC);m.position.set(p.x+(Math.random()-.5)*.5,.4+Math.random()*1.6,p.z+(Math.random()-.5)*.5);sc.add(m);parts.push({m,v:new THREE.Vector3(0,.4,0),l:.45,L:.45,g:0,s:2.4})}
-const RG=new THREE.RingGeometry(.85,1,40);RG.userData.keep=1;const RNG=[];
+const RG=KP(new THREE.RingGeometry(.85,1,40));const RNG=[];
 function ring(p,col,size){const m=new THREE.Mesh(RG,new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.set(p.x,.12,p.z);sc.add(m);RNG.push({m,t:0,s:size||3})}
 const FT=[],FV=new THREE.Vector3();
 function floatTxt(o,txt,cls){if(!o)return;const d=document.createElement('div');d.className='ft '+(cls||'');d.textContent=txt;$('ftl').appendChild(d);FT.push({d,o,t:0,ox:(Math.random()-.5)*40});if(FT.length>14){const q=FT.shift();q.d.remove()}}
