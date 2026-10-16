@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Grammon Quest: Grade 8 English</title>
+<style>
+:root{--bg:#0e1a2b;--pn:#16294a;--pk:#ffb02e;--cy:#5ee0ff;--ok:#3ddc84;--no:#ff5d5d;--tx:#f4faff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Trebuchet MS',Verdana,sans-serif}
+#w{position:relative;margin:0 auto}
+#hud{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:8px 12px;font-weight:bold;background:var(--pn);border-bottom:2px solid var(--pk)}
+#cv canvas{display:block;width:100%;touch-action:none}
+#ov,#bp{position:absolute;left:0;right:0;bottom:0;text-align:center}
+#ov{top:38px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(94,224,255,.5),rgba(22,41,74,.95) 70%)}
+#bp{max-height:75%;overflow:auto;padding:10px 14px;background:linear-gradient(0deg,rgba(10,20,40,.96) 80%,rgba(10,20,40,0))}
+.h{display:none!important}
+.box{max-height:100%;overflow:auto;max-width:620px;padding:18px 22px;background:rgba(10,20,40,.75);border:2px solid var(--pk);border-radius:10px}
+h1{font:italic 900 clamp(32px,7vw,54px)/1 Impact,'Arial Black',sans-serif;margin:0 0 8px;color:var(--pk);text-shadow:3px 3px 0 #0b3a6b}
+h2{font:italic 900 32px Impact,'Arial Black',sans-serif;margin:0 0 8px;color:var(--cy)}
+p{line-height:1.5;margin:8px 0}
+button{font:bold 16px 'Trebuchet MS',sans-serif;color:var(--tx);background:var(--pn);border:2px solid var(--cy);border-radius:6px;padding:9px 14px;margin:4px;cursor:pointer}
+button:hover,button:focus-visible{background:var(--pk);border-color:var(--pk);color:#210;outline:none}
+button:disabled{cursor:default}
+input{font:bold 16px 'Trebuchet MS',sans-serif;color:var(--tx);background:#0006;border:2px solid var(--cy);border-radius:6px;padding:8px 10px;width:200px;max-width:70%}
+.o{display:block;width:100%;text-align:left}
+.ok{background:var(--ok)!important;border-color:var(--ok)!important;color:#052}
+.no{background:var(--no)!important;border-color:var(--no)!important;color:#300}
+.s{font-size:20px;background:#0006;padding:10px;border-left:4px solid var(--pk);text-align:left;margin:6px 0}
+.sm{opacity:.8;font-size:14px}
+.bh{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px}
+.bar{display:inline-block;width:140px;height:10px;background:#0006;border:1px solid #fff8;border-radius:5px;margin:0 10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+#ts{position:absolute;top:50px;left:50%;transform:translateX(-50%);background:var(--pk);color:#210;font-weight:bold;padding:8px 16px;border-radius:20px}
+#kb{max-width:none;margin:8px auto;padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;align-items:center;background:var(--pn);border:2px solid #2b4a7a;border-radius:8px;font-size:14px}
+.kc{display:inline-flex;min-width:32px;height:30px;padding:0 6px;box-sizing:border-box;align-items:center;justify-content:center;font-style:normal;font-weight:bold;background:#1f3c6b;border:2px solid #5c86c2;border-bottom-width:5px;border-radius:6px;margin:2px}
+.kc.on{background:var(--pk);border-color:#ffd58a;color:#210;border-bottom-width:2px;transform:translateY(3px)}
+.z{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px}
+#hud button{padding:3px 8px;margin:0 2px;font-size:13px}.gc{display:inline-block;width:130px;margin:5px;padding:8px;border:2px solid var(--cy);border-radius:8px;background:#0006;font-size:13px}.gc.lg{border-color:var(--pk)}table{margin:auto;text-align:left}td{padding:3px 10px}body{touch-action:manipulation;overscroll-behavior:none}
+#tj{position:absolute;left:16px;bottom:16px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);touch-action:none;z-index:5}
+#tk{position:absolute;left:45px;top:45px;width:40px;height:40px;border-radius:50%;background:rgba(255,176,46,.85)}
+#tr{position:absolute;right:16px;bottom:34px;width:78px;height:78px;border-radius:50%;z-index:5;touch-action:none;user-select:none}
+@media(pointer:coarse){#kb{display:none}.o{padding:13px 12px}button{min-height:44px}#hud button{min-height:32px}}
+@media(max-width:600px){.s{font-size:17px}#hud{font-size:13px}h1{font-size:30px}}
+#bp{position:static;max-height:none;background:#0a1428;border-top:2px solid var(--pk)}
+#cv{position:relative}#cb i{position:absolute;left:0;right:0;height:12%;background:#000;z-index:3}#cb i:first-child{top:0}#cb i:last-child{bottom:0}
+#cx{position:absolute;left:3%;right:3%;bottom:14%;z-index:4;background:rgba(10,20,40,.9);border:2px solid var(--pk);border-radius:10px;padding:10px 14px;text-align:left;font-size:17px;min-height:70px}#cx p{margin:6px 0;min-height:44px}
+#w.wd #bp{position:absolute;right:12px;left:auto;bottom:auto;width:min(400px,40%);max-height:78%;overflow:auto;border:2px solid var(--pk);border-radius:12px;background:rgba(10,20,40,.9)}
+#w.wd #cx{left:auto;right:3%;width:36%;top:16%;bottom:auto}
+#fx{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;text-align:center;padding:0 8%;font:italic 900 clamp(22px,4.5vw,44px) Impact,'Arial Black',sans-serif;animation:fl 1.9s steps(1) forwards}
+#fx b{opacity:0;text-shadow:3px 3px 0 #ff3d9a;animation:fi .6s .8s forwards}#fx.fo{animation:fo .5s forwards}
+@keyframes fl{0%{background:#fff}8%{background:#000}16%{background:#fff}24%{background:#000}100%{background:#000}}@keyframes fi{to{opacity:1}}@keyframes fo{to{opacity:0}}
+.tp{font-size:13px;background:rgba(61,220,132,.12);border-left:4px solid var(--ok);padding:6px 8px;margin:6px 0;text-align:left}
+#cp{position:absolute;left:10px;top:50px;width:84px;height:84px;z-index:5;border-radius:50%;background:rgba(10,20,40,.78);border:3px solid var(--pk);box-shadow:0 0 8px #000a;pointer-events:none}
+#cp:before{content:'';position:absolute;left:50%;top:-11px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top:9px solid var(--cy)}
+#cd{position:absolute;left:0;top:0;width:84px;height:84px}
+#cd b{position:absolute;width:16px;font-size:14px;line-height:14px;text-align:center}
+#cd .cn{left:34px;top:3px;color:var(--no)}#cd .ce{right:3px;top:35px}#cd .cs{left:34px;bottom:3px}#cd .cw{left:3px;top:35px}
+#cd i{position:absolute;left:37px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent}
+#cd .nr{top:24px;border-bottom:18px solid var(--no)}#cd .nw{top:42px;border-top:18px solid #fff}
+#lc{position:absolute;left:108px;top:50px;width:90px;z-index:5;text-align:center;pointer-events:none}
+#lr{position:relative;width:84px;height:84px;border-radius:50%;background:rgba(40,28,0,.82);border:3px solid #ffd700;box-shadow:0 0 10px #ffd700aa}
+#la{position:absolute;left:0;top:0;width:84px;height:84px}
+#la i{position:absolute}
+#la .ah{left:32px;top:8px;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:34px solid #ffd700}
+#la .at{left:38px;top:41px;width:8px;height:24px;background:#fff6c0;border-radius:0 0 4px 4px}
+#lt{display:block;margin-top:4px;font-size:11px;line-height:13px;font-weight:bold;color:#ffd700;background:rgba(10,20,40,.85);border-radius:6px;padding:2px 3px;white-space:pre}
+#lc.cl #lr{animation:lp .7s infinite alternate}
+@keyframes lp{from{box-shadow:0 0 6px #ffd700}to{box-shadow:0 0 22px #fff6c0}}
+
+
+
+#mm{position:absolute;left:12px;bottom:12px;width:160px;height:160px;border-radius:50%;border:3px solid var(--pk);box-shadow:0 0 12px #000a;z-index:5;pointer-events:none}
+#gd{position:absolute;z-index:5;left:206px;top:54px;width:min(420px,calc(100% - 230px));display:flex;gap:10px;align-items:center;background:rgba(10,20,40,.84);border:2px solid var(--pk);border-radius:12px;padding:6px 10px;cursor:pointer;box-shadow:0 0 10px #000a;text-align:left}
+#gd canvas{border-radius:50%;border:2px solid #38b84a;flex:none}#gd b{color:var(--pk)}#gd p{margin:2px 0 0;font-size:13px;line-height:1.35}
+@media(pointer:coarse){#mm{left:auto;right:8px;bottom:auto;top:110px;width:130px;height:130px}}
+.gc.dc{cursor:pointer;width:140px}.gc img{width:120px;height:120px;display:block;margin:0 auto}#bx.wide{max-width:900px}
+</style></head><body>
+<div id="w">
+<div id="hud"><span>GRAMMON QUEST</span><span><button id="bd">Grammodex</button><button id="bl">Leaderboard</button><button id="bv">PvP</button><button id="bm">Music: on</button><button id="bs">Voice: on</button><button id="bpl">Players (1)</button><button id="bch">Chat</button><button id="bsv">Save</button></span><span id="hg" class="sm"></span><span id="hc"></span></div>
+<div id="cv"><div id="cb" class="h"><i></i><i></i></div><div id="cx" class="h"></div><div id="fx" class="h"></div></div><div id="ts" class="h"></div><div id="cp" class="h"><div id="cd"><b class="cn">N</b><b class="ce">E</b><b class="cs">S</b><b class="cw">W</b><i class="nr"></i><i class="nw"></i></div></div><div id="lc" class="h"><div id="lr"><div id="la"><i class="ah"></i><i class="at"></i></div></div><b id="lt"></b></div>
+<canvas id="mm" class="h" width="160" height="160"></canvas><div id="gd" class="h"><canvas id="gp" width="56" height="56"></canvas><div><b>Prof. Arvi Viz</b><p id="gt"></p></div></div><div id="bp" class="h"></div>
+<div id="tj" class="h"><i id="tk"></i></div><button id="tr" class="h">RUN</button>
+<div id="ov"><div class="box" id="bx"></div></div>
+</div>
+<div id="kb"><span><i class="kc" data-k="w">W</i><i class="kc" data-k="a">A</i><i class="kc" data-k="s">S</i><i class="kc" data-k="d">D</i> Walk</span><span><i class="kc" data-k="q">Q</i><i class="kc" data-k="e">E</i> Turn camera</span><span><i class="kc" data-k="shift">Shift</i> Run</span><span><i class="kc">1</i><i class="kc">2</i><i class="kc">3</i> Answer</span><span><i class="kc">F</i> Duel a nearby player</span><span><i class="kc">T</i> Quick chat</span><span class="sm">Arrow keys and mouse drag also work</span>
+<span class="sm">Walk in tall grass to find hidden Grammons. Only legendaries use a timer.</span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+// ================= MULTIPLAYER SETUP =================
+// Paste the firebaseConfig values from your Firebase project here (see the setup guide).
+// Until this is filled in, the game runs as a single-player game.
+const FIREBASE_CONFIG={
+  apiKey: "AIzaSyDaCxNA8b1v1o7n2OWZsJn5x7cFIDnHGYY",
+  authDomain: "gram-on-quest.firebaseapp.com",
+  databaseURL: "https://gram-on-quest-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "gram-on-quest",
+  storageBucket: "gram-on-quest.firebasestorage.app",
+  messagingSenderId: "100504826253",
+  appId: "1:100504826253:web:91636061bfa3876f5acdc4"
+};
+// =====================================================
+const $=id=>document.getElementById(id),VW=900,VH=520,k={},TOUCH=matchMedia('(pointer:coarse)').matches||'ontouchstart' in window,sh=a=>[...a].sort(()=>Math.random()-.5);
+const ST=["Somebody's Mother: Story","Somebody's Mother: Devices and Theme",'I Too Had a Dream: The Letter','I Too Had a Dream: Values','Vocabulary: The Letter','The Case of the Fifth Word: Story','The Case of the Fifth Word: The Code','Vocabulary: The Mystery','Fact or Opinion','Case and Anagrams','Texts and Authors'];
+const PPC=true,TIP=["Somebody's Mother: an old woman waits at a snowy crossing, the boys hurry past, and one boy stops to help her.",'A simile compares using like or as. Repetition repeats words for effect. Themes: empathy and compassion, generational respect, the golden rule.','I Too Had a Dream is a letter from Verghese Kurien to his grandson Siddharth, written in Anand in 2005.',"Kurien's values: integrity (being honest to yourself), humility, service, and working for the common good.",'Letter vocabulary: addicted, fleeting, abiding pleasure, jottings, foremost, humility, pursue, envisioned, ardently, poise, adhered, integrity, correlation, musings.','The Case of the Fifth Word: Encyclopedia Brown helps his father, the Chief of Police, solve a jewellery mystery.','The code: drop the letters d-a-y. Nom is Monday, Utes is Tuesday, Sweden is Wednesday, Hurts is Thursday. The fifth word is Fir, or Friday.','Story vocabulary: nickname, hold-ups, nursery, testify, hunch, loot, stroke, will, leafed through, confessed, code, foreseen.','A fact can be proven true or false. An opinion is a belief, feeling or judgement and cannot be proven.','Case can mean situation, matter, container or writing format. An anagram rearranges letters to make a new word.','Remember who wrote each text: Mary Dow Brine, Verghese Kurien and Donald J. Sobol.'];
+let rf=Math.random;const P=a=>a[rf()*a.length|0],cap=t=>t[0].toUpperCase()+t.slice(1),pk=()=>rf()<.5;
+const QD=`0|Who wrote the poem Somebody's Mother?|Mary Dow Brine|Donald J. Sobol|Verghese Kurien|The poem is by Mary Dow Brine.
+0|Where did the old woman stand and wait for a long time?|At the crossing|Outside her own house|At the school gate|She stood at the crossing and waited long.
+0|What was the street like on that winter day?|Wet with a recent snow|Dry and dusty|Crowded with a market|The street was wet with a recent snow.
+0|Who came down the street with laughter and shout?|The school boys|The old woman's sons|Some men from the market|The boys came down the street, glad that school had let out.
+0|Why were the boys glad and noisy?|School had let out|It was a holiday|They had won a match|They were glad in the freedom of school let out.
+0|What did most of the children do when they passed the old woman?|They hurried on their way|They stopped to help her|They stopped to talk to her|The children hastened on their way and offered no helping hand.
+0|What was the old woman afraid of while she waited?|That the carriage wheels or horses' feet would crowd her down|That the boys would make fun of her and push her aside|That she would lose her walking stick in the deep snow|She was afraid to stir lest the carriage wheels or the horses' feet crowd her down in the slippery street.
+0|Who finally stopped to help the old woman?|The gayest boy of the group|A shy girl|A policeman|At last one of the merry troop, the gayest laddie of all the group, paused beside her.
+0|What did the boy whisper to the old woman?|I'll help you cross, if you wish to go|Please move out of the way|Where is your son|He whispered low, I'll help you cross, if you wish to go.
+0|How did the boy feel after helping her?|Proud and happy|Angry and tired|Worried and sad|He was proud that his own feet were firm and strong, and his young heart was happy and well content.
+0|What did the old woman place on the boy's arm?|Her aged hand|Her walking stick|Her shopping bag|Her aged hand on his strong young arm she placed.
+0|What did the boy tell his friends about the woman?|She's somebody's mother|She is my teacher|She is a stranger so let her be|He told them she's somebody's mother, boys, you know.
+0|What did the old woman pray for that night?|That God be kind to the noble boy|That the snow would stop|That her own son would return home|She prayed God be kind to the noble boy, who is somebody's son, and pride and joy.
+1|Came the boys like a flock of sheep is an example of which poetic device?|Simile|Metaphor|Alliteration|A simile compares two things using like or as. The boys are compared to a flock of sheep.
+1|Which words in the poem make a comparison?|like a flock of sheep|snow piled white and deep|school let out|The words like a flock of sheep compare the boys to sheep.
+1|In The woman was old and ragged and grey, which device does the lesson mark?|Repetition|Simile|Hyperbole|The repeated and in old and ragged and grey is marked as repetition.
+1|Which of these is a theme of the poem?|Empathy and compassion|Winning at any cost|The joy of winter sports|The themes are empathy and compassion, generational respect and the golden rule.
+1|Which value does the poem teach us about older people?|Generational respect|Fear|Competition|Generational respect is one of the themes marked in the lesson.
+1|Which rule do the boy's words about his own mother remind us of?|Treat others the way you want to be treated|Always walk in a group when you cross the road|Never speak to strangers when you are alone|He hopes someone will help his mother one day, just as he helped this woman. That is the golden rule.
+1|Which meaning of ragged fits The woman was old and ragged and grey?|Of clothes, old and torn|Having an uneven edge|Very tired after effort|Here ragged means her clothes were old and torn, a synonym of shabby.
+1|In a ragged coastline, what does ragged mean?|Having an edge that is not straight or even|Old, torn and shabby like worn clothes|Very tired after climbing a long way|A ragged coastline has an uneven outline or edge.
+1|In The elderly man was ragged after climbing the stairs, what does ragged mean?|Very tired (informal)|Old and torn|Not smooth|Informally, ragged means very tired, especially after physical effort.
+1|In I could hear the sound of his ragged breathing, ragged means:|Not smooth or regular|Old and torn|Having a straight edge|Here ragged means not smooth or regular.
+1|Which words describe the old woman's feet at the start of the poem?|Aged and slow|Firm and strong|Merry and gay|The woman's feet were aged and slow.
+1|Which words describe the boy's feet?|Firm and strong|Trembling|Aged and slow|He was proud that his own feet were firm and strong.
+1|Which word describes the old woman's feet when the boy guided her?|Trembling|Firm|Hasty|He guided the trembling feet along.
+2|To whom is V Kurien's letter addressed?|His grandson Siddharth|His son|His teacher|The letter begins My dear Siddharth and is titled To my grandson.
+2|From which place did Kurien write the letter in 2005?|Anand|Delhi|Idaville|The letter is dated Anand, 2005.
+2|How does Kurien sign off the letter?|As Dada|As Uncle|As Professor|He signs off with love as Dada, meaning grandfather.
+2|Why does Kurien say we prefer to use a telephone today?|We have become addicted to instant communication|Letters cost too much|Telephones are easier to repair|He says we have become so addicted to instant communication that we prefer a telephone.
+2|What kind of joy does speaking on the telephone give?|An immediate but fleeting joy|A lasting joy|No joy at all|Speaking on the telephone gives an immediate but fleeting joy.
+2|What can a letter become, according to Kurien?|A possession that can be treasured and re-read|A bill that must be paid|A secret that must be hidden|Writing becomes a possession that can be treasured and re-read over the years.
+2|When did Kurien start his working life?|Soon after the country became independent|After he retired from his long career|When he was still a small child|He started his working life soon after our country became independent.
+2|For whom did Kurien agree to work about fifty years earlier?|A small cooperative of dairy farmers|A large company in the United States|The Indian Army as a young officer|He agreed to work for a small cooperative of dairy farmers trying to gain control over their lives.
+2|Which career in metallurgy could Kurien have had?|Chief executive of a large company|General in the Indian Army|Successful NRI in the US|He says he could have pursued metallurgy and become the chief executive of a large company.
+2|Why did Kurien not choose those other careers?|He felt he could do more good in Anand, Gujarat|He did not like the Army or big companies|He was not allowed to leave India at that time|He chose none because he knew he could make a more meaningful contribution by working in Anand.
+2|How did Kurien's grandmother (his wife) support him?|She ardently supported his choice to live and work in Anand|She asked him to move to the US for a better life|She wanted him to join the Army and become a general|She ardently supported his choice and gave him everlasting strength.
+2|When was Kurien awarded the Padma Vibhushan?|1999|2005|1947|The President awarded him the Padma Vibhushan in 1999.
+2|What did little Siddharth ask about the medal?|Whether he could keep it|Whether he could sell it|Whether it was made of gold|He slipped the medal around his neck and asked if he could keep it.
+2|What did Kurien and his wife tell Siddharth about the medal?|It was his as much as theirs, but he should earn his own reward|He could keep it forever because it was a gift|It belonged only to his grandfather and nobody else|They said the medal was his as much as theirs, but he should earn his own reward.
+3|Which value does Kurien call the most important?|Integrity|Wealth|Fame|He calls integrity the most important of the values he adhered to.
+3|What does Kurien say integrity means?|Being honest to yourself|Being rich|Being popular|He describes integrity as being honest to yourself.
+3|If you are always honest to yourself, what happens according to Kurien?|It does not take much effort to be honest with others|You will always win every contest you enter|You will not need to work hard to succeed|If you are always honest to yourself, it does not take much effort in always being honest with others.
+3|From whom did Kurien inherit his values?|His parents and other family elders|Only his friends|Only his teachers|He inherited values from his parents and other family elders.
+3|Who was Kurien's mentor and supporter in Anand?|Tribhuvandas Patel|Siddharth|Donald Sobol|He names Tribhuvandas Patel as his mentor and supporter.
+3|How does Kurien describe life?|A privilege|A punishment|A race|He says life is a privilege and to waste it would be wrong.
+3|According to Kurien, what is failure really about?|Not putting in your best effort for the common good|Not winning an award for your work|Not becoming rich and famous in life|Failure is about not putting in your best effort and not contributing, however modestly, to the common good.
+3|Whom does Kurien credit for the recognition he received?|The many people he was privileged to work with|Only himself, for his hard work|The government alone, for its support|He says the recognition is for the achievements of many people he was associated with.
+3|What does Kurien say about happiness and people's circumstances?|There is little correlation between them|Rich people are always happier|Poor people are always sad|He says there is little correlation between the circumstances of people's lives and how happy they are.
+3|Why do we think other people are happier than we are?|We only see images of perfection|They tell us they are|They are always richer|He says what we saw were only images of perfection.
+3|How can we live our lives to the fullest, according to Kurien?|By loving bravely, rejoicing in another's happiness and knowing there is enough for all|By collecting as many awards and medals as possible|By avoiding every risk and staying safe at home all the time|He says this is how we would have lived our lives to the fullest.
+3|What are the only true rewards, according to Kurien?|Rewards that come after working tirelessly for the larger good|Gifts that friends give on special days|Medals and prizes that can be bought in a shop|Rewards that come after working tirelessly for the larger good are the only true rewards.
+3|What does the caption under his picture ask?|Who says one man cannot make a change?|Who will write the next letter?|Where is the dairy?|The caption asks who says one man cannot make a change.
+3|What kind of nation did Kurien dream of?|One free from hunger and poverty, with equal respect and love|One full of big cities and tall buildings|One protected by a very large army|He dreamed of an India where people hold their heads high, free from hunger and poverty, with equal respect and love.
+4|What does addicted mean?|Dependent on something|Angry about something|Bored with something|Addicted means dependent on something.
+4|What does fleeting mean?|Momentary or short-lived|Lasting for a long time|Very loud|Fleeting means momentary or short-lived.
+4|What is an abiding pleasure?|A feeling of happiness that continues for a long time|A short moment of fun that quickly fades away|A prize given to the winner of a contest|An abiding pleasure is happiness that continues for a long time.
+4|What are jottings?|Brief notes|Long books|Loud sounds|Jottings are brief notes.
+4|What does foremost mean?|Leading|Last|Smallest|Foremost means leading.
+4|What is humility?|Modesty, the quality of being humble|Pride in oneself and one's success|Anger at others who do better|Humility means modesty.
+4|What does pursue mean?|Follow|Avoid|Forget|Pursue means follow.
+4|What does envisioned mean?|Imagined or expected something to happen in a particular way|Forgot completely what was going to happen|Saw something clearly with one's own eyes|Envisioned means imagined or expected something to happen in a particular way.
+4|What does ardently mean?|In a way that shows strong feelings|Quietly and slowly|In a rude manner|Ardently means in a way that shows strong feelings.
+4|What does poise mean?|A calm and confident manner|A loud voice|A sudden fear|Poise means in a calm and confident manner.
+4|What does adhered mean in adhered to certain values?|Continued to support|Gave up|Forgot|Adhered means to continue to support.
+4|What is integrity?|Honest and strong moral principles|A kind of medal|Great wealth|Integrity means honest and strong moral principles.
+4|What is a correlation?|A connection between two or more things|A kind of long letter written by hand|A type of award given to farmers|A correlation is a connection between two or more things.
+4|What are musings?|Thoughts on something one has been thinking about carefully for a long time|Songs sung together by groups of children|Quick jokes told to make people laugh|Musings are thoughts one has been thinking about carefully for a long time.
+5|Where does Encyclopedia Brown live?|Idaville, USA|Anand, India|South Carolina|Encyclopedia Brown lives in Idaville, USA.
+5|What is Encyclopedia's father's job?|Chief of Police|Lawyer|Nursery owner|His father is the Chief of Police.
+5|What is Encyclopedia Brown's real name?|Leroy|Daniel|Timothy|Only his parents and teachers called him by his real name, Leroy.
+5|Why was Leroy called Encyclopedia?|His head was filled with facts, as he read more books than anyone|He was the tallest and strongest boy in Idaville|His family owned a shop that sold encyclopedias|An encyclopedia is filled with facts from A to Z, and so was his head.
+5|Why did Chief Brown say nothing about his son's talent?|No one would believe the best detective alive was an eighth grader|He was ashamed that his son was so different|He did not know that his son was solving cases|He asked who would believe that the best detective alive was an eighth grader.
+5|Why did Encyclopedia never speak of the help he gave his father?|He did not want to seem different from other boys|He wanted a big reward from the police|He was afraid the police would arrest him|He didn't want to seem different from other boys.
+5|What did Chief Brown do when he came up against a case he could not solve?|He cleared his desk, put on his hat and went home to dinner|He called the army for help with the case|He gave up and went away on a long holiday|He acted at once: he cleared his desk, put on his hat and went home to dinner.
+5|What was Chief Brown staring at on Tuesday night?|His cream-of-mushroom soup|His notebook|The calendar|He stared at his cream-of-mushroom soup, which meant he had a mystery.
+5|Who died yesterday, according to Chief Brown?|Tim Nolan|Daniel Davenport|Leroy|Chief Brown announced that Tim Nolan died yesterday.
+5|What was stolen five years ago?|A million dollars' worth of jewellery from the Diamond Mart|A famous painting from the city museum|Money from the largest bank in Idaville|Two masked men held up the Diamond Mart on Sixth Avenue and got away with a million dollars' worth of jewellery.
+5|Where did Nolan and Davenport meet?|In prison in South Carolina|At a school in Idaville|On a ship|They met while both were in prison in South Carolina.
+5|What business did Nolan start in Idaville?|A small palm-tree nursery|A jewellery shop|A bakery|He settled in Idaville and started a small palm-tree nursery.
+5|What happened to Nolan yesterday morning?|He had a stroke|He was arrested|He left town|Yesterday morning he had a stroke.
+5|What did Nolan put on the kitchen table?|His will|A map|A key|With his last strength he put his will on the kitchen table.
+5|Who does Nolan's will leave everything to?|Davenport|The police|Leroy|It leaves everything he owns, including his palm-tree nursery, to Davenport.
+5|What was clipped to Nolan's will?|A sheet from his desk calendar|A photograph|A letter|A sheet from his desk calendar was clipped to the will.
+6|What four words did Nolan write on the calendar sheet?|Nom Utes Sweden Hurts|Mon Tue Wed Thu|Monday Tuesday Wednesday Thursday|He wrote Nom Utes Sweden Hurts below Davenport's name and address.
+6|What did the four words stand for?|Days of the week|Names of tribes|Names of countries|The four words stood for days of the week.
+6|Which letters did Nolan drop to make the code?|d-a-y|m-o-n|t-h-u|Nolan dropped the letters d-a-y.
+6|What does Nom stand for?|Monday|Tuesday|Thursday|Nom is Monday with the letters d-a-y dropped.
+6|What does Utes stand for?|Tuesday|Wednesday|Thursday|Utes is Tuesday.
+6|What does Sweden stand for?|Wednesday|Tuesday|Friday|Sweden is Wednesday.
+6|What does Hurts stand for?|Thursday|Saturday|Sunday|Hurts is Thursday.
+6|What was the unwritten fifth word?|Fir, or Friday|Sat, or Saturday|Sun, or Sunday|The unwritten fifth word was Fir, or Friday.
+6|What question did Encyclopedia ask his father?|Is there a young fir tree in Mr. Nolan's palm-tree nursery?|Where is Davenport hiding after the hold-up?|Was the will signed by Nolan before he died?|He asked whether there was a young fir tree in the nursery.
+6|Where was the young fir tree in the nursery?|On the south side of the house|Behind the kitchen|Next to the gate|Chief Brown said there was one on the south side of the house.
+6|Where was the jewellery found?|Inside a twenty-gallon jug of earth from which the young fir tree grew|Under the kitchen table beside the will|Inside the shed at the back of the nursery|It was found inside a twenty-gallon jug of earth from which grew the young fir tree.
+6|How did Mrs. Brown explain the word Nom?|As a shortening of nominative, a grammatical term|As the name of an American Indian tribe|As the name of a country in northern Europe|Mrs. Brown said Nom is a shortening of nominative, a grammatical term.
+6|What did Mrs. Brown say Utes are?|An American Indian tribe|A country in northern Europe|Days of the week|Mrs. Brown said Utes are an American Indian tribe.
+6|Why did Encyclopedia say the code was simple?|It was written on a sheet from a calendar|It was written in plain English|It was hidden in a book|He said the code is simple, especially as it is written on a sheet from a calendar.
+6|Why did Nolan most likely write the four words as he was dying?|To tell Davenport where the jewellery was hidden|To confuse the police about the hold-up|To change what his will said about the nursery|Encyclopedia said the four words tell where the jewellery is hidden.
+7|What is a nickname?|A pet name|A secret code|A job title|A nickname is a pet name.
+7|What does in a matter-of-fact manner mean?|Without showing much emotion|Very loudly|With great excitement|It means without showing much emotion.
+7|What are hold-ups?|Robberies conducted with the use of threat or violence|Delays on a road because of heavy traffic|Late arrivals at school after the bell|Hold-ups are robberies conducted with the use of threat or violence.
+7|What is a nursery in the story?|A place where young plants and trees are grown for sale|A room in a house where babies sleep|A school for very small children|A nursery is a place where young plants and trees are grown for sale.
+7|What does testify mean?|Make a statement in court to prove that something is true|Run away from a place to avoid trouble|Write a long letter to a judge or lawyer|Testify means to make a statement in court to prove that something is true.
+7|What is a hunch?|A strong feeling about something|A hard fact|A bowl of soup|A hunch is a strong feeling about something.
+7|What is loot?|Stolen goods|A kind of tree|A police officer|Loot means stolen goods.
+7|What is a stroke?|A sudden serious illness causing inability to move|A kind of calendar kept on a desk|A hiding place under the ground|A stroke is a sudden serious illness causing inability to move.
+7|What is a will in the story?|A legal document about someone's money and property after death|A strong determination to finish a task|A secret code written on a calendar|Will here means a legal document that says what is to happen to somebody's money and property after their death.
+7|What does leafed through mean?|Quickly turned the pages|Read very slowly|Tore out the pages|Leafed through means quickly turned the pages.
+7|What does confessed mean?|Admitted|Denied|Shouted|Confessed means admitted.
+7|What is a code?|A hidden message|A police rule|A kind of soup|A code is a hidden message.
+7|What does foreseen mean?|Predicted|Forgotten|Hidden|Foreseen means predicted.
+8|What is a fact?|Something that can be proven true or false|A belief or feeling|A judgement that differs from person to person|A fact can be proven true or false and is not based on people's beliefs.
+8|What is an opinion?|A belief, feeling or judgement that cannot be proven|Something that can be proven true or false|A date in history that can be checked|An opinion is a belief, feeling or judgement and can vary from one person to another.
+8|Fact or opinion? Encyclopedia's father was the Chief of Police.|Fact|Opinion|Neither|It can be proven, so it is a fact. This is the example given in the book.
+8|Fact or opinion? Everyone thought that Chief Brown must be the smartest police chief in the country.|Opinion|Fact|Neither|It is what people believed, so it is an opinion.
+8|Fact or opinion? An encyclopedia is a book or set of books filled with facts from A to Z.|Fact|Opinion|Neither|This is a definition that can be checked, so it is a fact.
+8|Fact or opinion? Leroy's friends said he was like a library and computer rolled into one, and more user-friendly.|Opinion|Fact|Neither|It is the friends' judgement, so it is an opinion.
+8|Fact or opinion? Two masked men held up the Diamond Mart on Sixth Avenue.|Fact|Opinion|Neither|It describes an event that can be proven, so it is a fact.
+8|Fact or opinion? Nolan and Davenport had met while both were in prison in South Carolina.|Fact|Opinion|Neither|It can be proven true, so it is a fact.
+8|Fact or opinion? Speaking on the telephone only gives an immediate but fleeting joy.|Opinion|Fact|Neither|This is Kurien's feeling and judgement. It cannot be proven, so it is an opinion.
+8|Fact or opinion? Kurien was awarded the Padma Vibhushan in 1999.|Fact|Opinion|Neither|It can be checked, so it is a fact.
+8|Fact or opinion? Integrity is the most important of all values.|Opinion|Fact|Neither|Kurien says this from his own belief. It cannot be proven, so it is an opinion.
+8|Fact or opinion? Nolan suffered from a bad heart for many years.|Fact|Opinion|Neither|Chief Brown states it as something that can be checked, so it is a fact.
+9|Lalit said that he could not sing but that was not the case as he sang melodiously later. What does case mean here?|Situation|Matter|Container|Here case means the situation, the way things are.
+9|The lawyer was waiting for the case to be taken up in court. What does case mean here?|Matter|Situation|Writing format|Here case means a legal matter.
+9|My pencil case is a gift from my grandmother. What does case mean here?|Container|Situation|Matter|A pencil case is a container.
+9|The subject of a formal letter is written in title case. What does case mean here?|Writing format|Container|Situation|Title case is a writing format.
+9|What is an anagram?|A word or phrase made by rearranging the letters of another|A word that sounds exactly the same as another word|A word that has the opposite meaning of another|An anagram is made by rearranging the letters in a different order to make a new word or phrase.
+9|The book says neat is an anagram of which phrase?|a net|an ant|a tea|Rearranging the letters of neat gives a net.
+9|Which word is an anagram of aces, the clue for Down 1?|case|cast|cash|The letters of aces can be rearranged to make case.
+9|Which word is an anagram of tool, the clue for Down 4?|loot|toll|tot|The letters of tool can be rearranged to make loot.
+9|Which word is an anagram of loves, the clue for Down 11?|solve|slave|olive|The letters of loves can be rearranged to make solve.
+9|Which word is an anagram of sword, the clue for Across 12?|words|sowed|swords|The letters of sword can be rearranged to make words.
+9|Which word is an anagram of heart, the clue for Across 7?|earth|hearth|hat|The letters of heart can be rearranged to make earth.
+9|Which word is an anagram of read, the clue for Down 2?|dear|reed|ready|The letters of read can be rearranged to make dear.
+10|Which text is a letter written to a grandson?|I Too Had a Dream|Somebody's Mother|The Case of the Fifth Word|Verghese Kurien wrote To my grandson.
+10|Which text is a poem?|Somebody's Mother|The Case of the Fifth Word|I Too Had a Dream|Somebody's Mother is a poem by Mary Dow Brine.
+10|Which text is a detective story?|The Case of the Fifth Word|Somebody's Mother|I Too Had a Dream|The Case of the Fifth Word is a mystery story.
+10|Who wrote The Case of the Fifth Word?|Donald J. Sobol|Mary Dow Brine|Verghese Kurien|The story is by Donald J. Sobol, adapted.
+10|Who wrote I Too Had a Dream?|Verghese Kurien|Mary Dow Brine|Donald J. Sobol|The letter is by Verghese Kurien.
+10|Which text has empathy and compassion as a theme?|Somebody's Mother|The Case of the Fifth Word|I Too Had a Dream|Empathy and compassion is the theme of Somebody's Mother.
+10|Which text is about service to dairy farmers?|I Too Had a Dream|Somebody's Mother|The Case of the Fifth Word|Kurien chose to serve the nation's farmers by working for a dairy cooperative in Anand.
+10|Which text uses a code made from days of the week?|The Case of the Fifth Word|I Too Had a Dream|Somebody's Mother|Nolan's code Nom Utes Sweden Hurts stands for Monday to Thursday.
+10|Who is Chief Brown's wife?|Mrs. Brown, who had taught English in high school|A police officer in Idaville|The owner of a palm-tree nursery|Mrs. Brown had taught English and other subjects in high school.
+10|Which two officers searched Nolan's house?|Lewis and Maloney|Brown and Nolan|Davenport and Nolan|Officers Lewis and Maloney just about took Nolan's house apart.
+10|Who refused to testify against Nolan?|The clerk who thought she recognised him|Mrs. Brown, the Chief's wife|Daniel Davenport, his friend|The clerk refused to testify against Nolan.
+10|Which two men did Chief Brown believe pulled the hold-ups?|Nolan and Davenport|Lewis and Maloney|Brown and Leroy|He believed Nolan and Daniel Davenport pulled the hold-ups.
+10|What is the name of Kurien's grandson?|Siddharth|Leroy|Daniel|The letter is addressed to Siddharth.`;
+const BK=ST.map(()=>[]);QD.split('\n').forEach(l=>{const p=l.split('|');if(p.length>=5)BK[+p[0]].push([p[1].trim(),p.slice(2,p.length-1),0,p[p.length-1]])});
+const TQ=BK.reduce((a,b)=>a+b.length,0);
+const ELS=[['Fire',0xe8592b,0xffd27a],['Water',0x3d8ee8,0xbfe3ff],['Grass',0x4fb04f,0xd9f0a8],['Electric',0xf2d02b,0xfff6b0],['Ice',0x8fdcf2,0xffffff],['Rock',0x8a7a68,0xd9cdb8],['Wind',0xb8d8e8,0xffffff],['Dark',0x4a3f6a,0xb7a8e0],['Bug',0x9acd32,0xe6f5a0],['Psychic',0xc06ae0,0xf0c8ff],['Earth',0x9a6a3a,0xe0c090],['Fighting',0xc0392b,0xf2b8a0]];
+const BDY=[['q','p','b',[0,9],'fox'],['q','l','f',[1,7],'bun'],['q','p','b',[2,3],'wolf'],['q','r','n',[0,1],'bear'],['q','a','s',[3,8],'stag'],['q','p','s',[2,6],'kit'],['q','r','s',[7,10],'hog'],['b',0,0,[4,10],'owl'],['b',0,0,[4,8],'hawk'],['b',0,0,[5,9],'pengu'],['t',0,0,[5,6],'turt'],['f',0,0,[6,0],'frog']];
+const ELP=['Pyro','Aqua','Leafy','Volt','Frost','Stono','Zephy','Shado','Buggy','Psy','Terra','Brawl'];
+const T=[];for(let i=0;i<48;i++){const b=BDY[i%12],e=(i%12+3*(i/12|0))%12,E=ELS[e];T.push({n:ELP[e]+b[4],k:b[0],c:E[1],d:E[2],e:b[1],t:b[2],st:b[3],ty:E[0],el:e})}
+T.push({n:'Chronos',k:'d',c:0xffd700,d:0xfff6c0,e:'h',t:'n',lg:1,ty:'Time'},{n:'Aeonix',k:'d',c:0xff4fd8,d:0xffd0f4,e:'h',t:'n',lg:1,ty:'Time'},{n:'Tempora',k:'d',c:0x4fffd0,d:0xd0fff4,e:'h',t:'n',lg:1,ty:'Time'});
+const Z=[];
+const sc=new THREE.Scene();{const c=document.createElement('canvas');c.width=2;c.height=256;const x=c.getContext('2d'),gr=x.createLinearGradient(0,0,0,256);gr.addColorStop(0,'#3a7bd5');gr.addColorStop(.6,'#8fd3ff');gr.addColorStop(1,'#ffe9c2');x.fillStyle=gr;x.fillRect(0,0,2,256);sc.background=new THREE.CanvasTexture(c)}sc.fog=new THREE.Fog(0xcfe8ff,70,300);
+const cam=new THREE.PerspectiveCamera(55,VW/VH,.1,700),R=new THREE.WebGLRenderer({antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,TOUCH?1.5:2));R.setSize(VW,VH,false);R.shadowMap.enabled=true;$('cv').appendChild(R.domElement);
+let WD=1;function rs(){const w=$('cv').clientWidth,t=$('hud').offsetHeight,kh=TOUCH?0:$('kb').offsetHeight+18,nar=w<720;WD=!nar;let h=Math.round(innerHeight-t-kh-4);if(nar&&['battle','duel','talk'].includes(mode))h=Math.round(h*.5);h=Math.max(260,h);R.setSize(w,h,false);R.domElement.style.height=h+'px';cam.aspect=w/h;cam.fov=w/h<1?72:55;cam.updateProjectionMatrix();$('w').classList.toggle('wd',WD);$('bp').style.top=WD?(t+12)+'px':'';$('ov').style.top=t+'px';$('ts').style.top=(t+8)+'px';$('cp').style.top=(t+14)+'px';$('lc').style.top=(t+14)+'px';{const g=$('gd');g.style.top=(nar?t+112:t+14)+'px';g.style.left=nar?'10px':'206px';g.style.width=nar?'calc(100% - 20px)':'min(420px,calc(100% - 230px))'}}
+addEventListener('resize',rs);addEventListener('orientationchange',()=>setTimeout(rs,250));
+sc.add(new THREE.HemisphereLight(0xffffff,0x5a8a50,.95));const sun=new THREE.DirectionalLight(0xfff2cc,.9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-35,right:35,top:35,bottom:-35,far:150});sun.position.set(40,60,20);sc.add(sun,sun.target);{const rm=new THREE.DirectionalLight(0xa8c8ff,.35);rm.position.set(-30,25,-40);sc.add(rm)}
+let TN=0;const add=(geo,c,x,y,z,p)=>{const m=new THREE.Mesh(geo,TN?new THREE.MeshPhongMaterial({color:c,shininess:28,specular:0x2a2a2a}):new THREE.MeshLambertMaterial({color:c}));m.position.set(x,y,z);m.castShadow=true;(p||sc).add(m);return m};
+{const gg=add(new THREE.PlaneGeometry(520,520,100,100),0xffffff,0,0,0);gg.rotation.x=-Math.PI/2;gg.receiveShadow=true;const ps=gg.geometry.attributes.position,cs=[];for(let i=0;i<ps.count;i++){const v=.55+.25*Math.sin(ps.getX(i)*.11)*Math.cos(ps.getY(i)*.09)+Math.random()*.06;cs.push(.32*v+.1,.72*v+.1,.3*v+.1)}gg.geometry.setAttribute('color',new THREE.Float32BufferAttribute(cs,3));gg.material.vertexColors=true}
+Z.forEach(q=>{add(new THREE.CircleGeometry(24,40),q[2],q[0],.03,q[1]).rotation.x=-Math.PI/2;
+ const b=new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,40,12),new THREE.MeshBasicMaterial({color:q[2],transparent:true,opacity:.35}));b.position.set(q[0],20,q[1]);sc.add(b)});
+const trees=[],FJ=(r,d)=>{const g=new THREE.IcosahedronGeometry(r,d),q=g.attributes.position;for(let i=0;i<q.count;i++)q.setXYZ(i,q.getX(i)*(1+(Math.random()-.5)*.3),q.getY(i)*(1+(Math.random()-.5)*.3),q.getZ(i)*(1+(Math.random()-.5)*.3));g.computeVertexNormals();return g};
+function tree(x,z,k){const t=new THREE.Group(),h=k?3.2:2.4,tr=add(new THREE.CylinderGeometry(.22,.42,h,7),0x6e4a28,0,h/2,0,t);tr.rotation.z=(Math.random()-.5)*.12;
+ [[0x2f8f4a,1.9,h+.8,0,0],[0x3aa055,1.5,h+1.9,.5,.2],[0x4fb560,1.2,h+1.5,-.7,-.3]].concat(k?[[0x2a7d44,1.4,h+2.6,0,0]]:[]).forEach(q=>add(FJ(q[1],1),q[0],q[3],q[2],q[4],t));
+ t.scale.setScalar(.85+Math.random()*.7);t.rotation.y=Math.random()*6;t.position.set(x,0,z);sc.add(t);trees.push([x,z])}
+for(let i=0;i<260;i++){const x=Math.random()*440-220,z=Math.random()*440-220;if(Math.hypot(x,z)<12)continue;tree(x,z,i%3===0)}
+for(let i=0;i<500;i++)add(new THREE.SphereGeometry(.15,6,6),[0xff5d8f,0xffe14d,0xffffff][i%3],Math.random()*470-235,.15,Math.random()*470-235);
+const clouds=[];for(let i=0;i<16;i++){const c=new THREE.Group();for(let j=0;j<3;j++)add(new THREE.SphereGeometry(4+j,10,8),0xffffff,j*4,0,j%2*2,c).scale.y=.6;c.position.set(Math.random()*470-235,32+Math.random()*8,Math.random()*400-200);sc.add(c);clouds.push(c)}
+for(let i=0;i<28;i++){const a=i/28*6.28;add(new THREE.ConeGeometry(36+Math.random()*20,60+Math.random()*50,6),0x5a6fa8,Math.cos(a)*262,22,Math.sin(a)*262)}
+{const sn=add(new THREE.SphereGeometry(6,16,16),0xfff0a0,-90,55,-140);sn.material=new THREE.MeshBasicMaterial({color:0xfff0a0,fog:false})}
+add(new THREE.CircleGeometry(9,32),0x3aa0e0,28,.04,18).rotation.x=-Math.PI/2;
+const GP=[];for(let i=0;i<20;i++){let x,z;do{x=Math.random()*420-210;z=Math.random()*420-210}while(Math.hypot(x,z)<28);GP.push([x,z,13+Math.random()*7])}
+{const n=GP.reduce((a,g)=>a+(g[2]*g[2]*3.2|0),0),ge=new THREE.ConeGeometry(.09,1.5,3,3);ge.translate(0,.75,0);{const pa=ge.attributes.position,cc=[];for(let q=0;q<pa.count;q++){const f=Math.min(1,Math.max(0,pa.getY(q)/1.5));cc.push(.35+.65*f,.45+.55*f,.3+.3*f)}ge.setAttribute('color',new THREE.Float32BufferAttribute(cc,3))}const im=new THREE.InstancedMesh(ge,new THREE.MeshLambertMaterial({color:0xffffff,vertexColors:true}),n),d=new THREE.Object3D(),col=new THREE.Color();let i=0;
+ GP.forEach(g=>{const c=g[2]*g[2]*3.2|0;for(let j=0;j<c;j++){const a=Math.random()*6.28,r=Math.sqrt(Math.random())*g[2];d.position.set(g[0]+Math.cos(a)*r,0,g[1]+Math.sin(a)*r);d.rotation.set((Math.random()-.5)*.7,Math.random()*6,(Math.random()-.5)*.7);d.scale.set(1,.8+Math.random()*.9,1);d.updateMatrix();im.setMatrixAt(i,d.matrix);im.setColorAt(i++,col.setHSL(.25+Math.random()*.08,.6,.28+Math.random()*.12))}});im.frustumCulled=false;sc.add(im)}
+
+const FG=new THREE.BufferGeometry(),fp=[];for(let i=0;i<150;i++)fp.push(Math.random()*470-235,.6+Math.random()*2.5,Math.random()*470-235);FG.setAttribute('position',new THREE.Float32BufferAttribute(fp,3));const FF=new THREE.Points(FG,new THREE.PointsMaterial({color:0xfff27a,size:.35,transparent:true,opacity:.85}));sc.add(FF);
+const pl=new THREE.Group();add(new THREE.CylinderGeometry(.4,.45,1,10),0xe23d4d,0,1,0,pl);add(new THREE.SphereGeometry(.34,12,12),0xffd2a8,0,1.75,0,pl);
+add(new THREE.SphereGeometry(.37,12,8,0,7,0,1.6),0xe23d4d,0,1.85,0,pl);add(new THREE.BoxGeometry(.5,.06,.4),0xe23d4d,0,1.8,.4,pl);add(new THREE.BoxGeometry(.5,.6,.25),0x2d6cdf,0,1.1,-.42,pl);
+const legL=add(new THREE.BoxGeometry(.22,.55,.26),0x2a2a4a,-.2,.28,0,pl),legR=add(new THREE.BoxGeometry(.22,.55,.26),0x2a2a4a,.2,.28,0,pl);sc.add(pl);
+function lab(t,col){const c=document.createElement('canvas');c.width=256;c.height=64;const x=c.getContext('2d');x.fillStyle='rgba(20,10,40,.8)';x.fillRect(0,0,256,64);x.strokeStyle=col;x.lineWidth=4;x.strokeRect(2,2,252,60);x.fillStyle='#fff';x.font='bold 19px Trebuchet MS';x.textAlign='center';x.fillText(t,128,39);
+ const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c)}));s.scale.set(4,1,1);s.position.y=3.4;return s}
+const SG=r=>new THREE.SphereGeometry(r,22,16),CN=(r,h)=>new THREE.ConeGeometry(r,h,12),CY=(a,b,h)=>new THREE.CylinderGeometry(a,b,h,12),BX=(a,b,d)=>new THREE.BoxGeometry(a,b,d);
+const S=(g,c,x,y,z,p,a,b,d)=>{const m=add(g,c,x,y,z,p);m.scale.set(a||1,b||1,d||1);return m};
+const eyes=(m,y,z,sp,big)=>[-1,1].forEach(q=>{S(SG(big),0xffffff,q*sp,y,z,m);S(SG(big*.55),0x111111,q*sp,y,z+big*.7,m)});
+function acc(m,e){const A=(g,c,x,y,z)=>add(g,c,x,y,z,m);
+ if(e===0){A(CN(.25,.8),0xff5a1a,0,1.9,-.9).rotation.x=-.3;A(CN(.15,.5),0xffd23a,.2,1.85,-.95)}
+ if(e===1)A(BX(.05,.7,.5),0x2f7be0,0,2,0);
+ if(e===2){A(CN(.2,.7),0x3fbf4f,0,2.3,.9).rotation.x=.3;A(SG(.25),0x2f9f3f,0,1.8,-.3)}
+ if(e===3){A(BX(.1,.5,.1),0xfff03a,.3,1.9,-.9).rotation.z=.6;A(BX(.1,.5,.1),0xfff03a,.45,1.6,-.9).rotation.z=-.6}
+ if(e===4)[-1,1].forEach(q=>A(CN(.15,.6),0xdff8ff,q*.35,1.95,-.3));
+ if(e===5)[-.3,.3].forEach(x=>A(new THREE.DodecahedronGeometry(.25,0),0x6f6458,x,1.8,-.4));
+ if(e===6){A(SG(.3),0xffffff,.5,1.7,-.7);A(SG(.25),0xffffff,-.5,1.6,-.8)}
+ if(e===7)[-1,1].forEach(q=>A(CN(.1,.5),0x2a1f4a,q*.25,2.4,.9));
+ if(e===8)[-1,1].forEach(q=>{A(CY(.015,.015,.7),0x3a4a1a,q*.22,2.3,1.05).rotation.z=-q*.35;A(SG(.07),0xffe14d,q*.4,2.62,1.05);A(SG(.5),0xdff7ff,q*.55,1.7,-.2).scale.set(.15,.9,.5)});
+ if(e===9)A(new THREE.OctahedronGeometry(.14,0),0xff3dd0,0,1.95,1.45);
+ if(e===10)[-.3,0,.3].forEach(x=>A(CN(.1,.4),0x6a4a2a,x,1.85,-.4));
+ if(e===11){A(new THREE.TorusGeometry(.5,.05,8,20),0xff2a2a,0,1.72,1.02).rotation.x=1.45;[-1,1].forEach(q=>A(CY(.14,.14,.28),0xf4f1e8,q*.38,.12,.7))}}
+function fin(m,t){const k=t.k,A=(g,c,x,y,z,a,b,d)=>S(g,c,x,y,z,m,a,b,d),ac=t.el!==undefined?ELS[t.el][1]:t.d;
+ if(k==='q'||k==='d'){[-1,1].forEach(q=>{A(SG(.1),0xff8fa3,q*.4,1.35,1.5,1,1,.35);A(BX(.17,.035,.03),0x2a1a14,q*.26,1.74,1.56).rotation.z=q*.22});
+  A(new THREE.TorusGeometry(.1,.014,6,14,Math.PI),0x2a1a14,0,1.22,1.8).rotation.z=Math.PI;A(SG(.2),t.d,0,.95,.85,1,1,.6);
+  for(let i=0;i<4;i++)A(CN(.1,.26),ac,0,1.72-i*.04,.55-i*.36).rotation.x=-.25;
+  [[-.38,.7],[.38,.7],[-.38,-.7],[.38,-.7]].forEach(l=>[-1,0,1].forEach(j=>A(CN(.025,.1),0xf4f1e8,l[0]+j*.07,.03,l[1]+.2).rotation.x=1.57));
+  if(t.e==='p')[-1,1].forEach(q=>A(CN(.09,.34),0xffb3c1,q*.32,1.98,1.02))}
+ const sh=new THREE.Mesh(new THREE.CircleGeometry(k==='d'?1.6:1.15,22),new THREE.MeshBasicMaterial({color:0,transparent:true,opacity:.3,depthWrite:false}));sh.rotation.x=-Math.PI/2;sh.position.y=.03;m.add(sh)}
+const FR=new THREE.ConeGeometry(.04,.26,4);FR.translate(0,.13,0);const HF=new THREE.ConeGeometry(.025,.16,4);HF.translate(0,.08,0);
+function fw(g,q,c,d){for(let r=0;r<3;r++)for(let i=0;i<7;i++){const a=(i-3)*.17+r*.04,L=(1.25-Math.abs(i-3)*.09)*(1-r*.22),f=new THREE.Group();f.rotation.y=-q*a;f.position.y=-r*.03;f.rotation.z=q*(.12+r*.05);S(SG(1),r?c:d,q*L/2,0,0,f,L/2,.025,.1+r*.015);g.add(f)}}
+function tufts(m,R,geo,c1,c2,sh,tilt){const n=R.reduce((a,r)=>a+r[6],0),im=new THREE.InstancedMesh(geo,new THREE.MeshPhongMaterial({color:0xffffff,shininess:sh}),n),d=new THREE.Object3D(),c=new THREE.Color(),a1=new THREE.Color(c1),a2=new THREE.Color(c2),up=new THREE.Vector3(0,1,0);let i=0;
+ R.forEach(r=>{for(let j=0;j<r[6];j++){const u=Math.random()*6.283,v=r[7]?Math.random()*r[7]:Math.acos(2*Math.random()-1),nx=Math.sin(v)*Math.cos(u),ny=Math.cos(v),nz=Math.sin(v)*Math.sin(u);d.position.set(r[0]+nx*r[3],r[1]+ny*r[4],r[2]+nz*r[5]);
+  const nn=new THREE.Vector3(nx/r[3],ny/r[4],nz/r[5]).normalize().add(tilt).normalize();d.quaternion.setFromUnitVectors(up,nn);d.scale.setScalar(.7+Math.random()*.7);d.updateMatrix();im.setMatrixAt(i,d.matrix);im.setColorAt(i++,c.copy(ny<-.35?a2:a1).offsetHSL(0,0,(Math.random()-.5)*.1))}});im.frustumCulled=false;m.add(im)}
+function fur(m,t){const k=t.k;if(k==='t'||k==='f'||k==='d')return;const R=k==='b'?[[0,1.2,0,.54,.72,.54,110],[0,2.1,.15,.5,.5,.5,50]]:[[0,.95,0,.6,.53,1.05,150],[0,1.4,1.1,.44,.42,.46,90],[0,1.2,.8,.45,.4,.4,40]];
+ if(t.t==='b')R.push([0,1.05,-1.25,.3,.3,.55,45]);if(t.t==='f')R.push([0,1,-1.05,.28,.28,.28,35]);tufts(m,R,FR,t.c,t.d,6,new THREE.Vector3(0,-.25,-.3))}
+function hairFur(ig,hr){tufts(ig,[[0,2.42,-.03,.35,.35,.35,110,1.35]],HF,hr,hr,30,new THREE.Vector3(0,-.15,-.35))}
+function animal(t){TN=1;const m=animal0(t);if(t.el!==undefined)acc(m,t.el);fin(m,t);fur(m,t);TN=0;return m}
+function animal0(t){const m=new THREE.Group(),c=t.c,d=t.d,k=t.k;
+ if(k==='q'||k==='d'){S(SG(.7),c,0,.95,0,m,.85,.75,1.5);S(SG(.5),d,0,.75,.4,m,.85,.55,1);
+  [[-.38,.7],[.38,.7],[-.38,-.7],[.38,-.7]].forEach(l=>{S(CY(.13,.1,.75),c,l[0],.38,l[1],m);S(SG(.14),d,l[0],.05,l[1]+.05,m,1,.6,1.3)});
+  S(SG(.44),c,0,1.4,1.1,m,1,.95,1.05);S(SG(.24),k==='d'?c:d,0,1.27,1.5,m,.9,.8,1.3);S(SG(.07),0x111111,0,1.33,1.78,m);eyes(m,1.5,1.4,.22,.08);
+  const e=t.e;if(e==='p'||e==='h')[-1,1].forEach(q=>{S(CN(.16,e==='h'?.6:.5),e==='h'?0xffe9a8:c,q*.25,1.85,1,m).rotation.z=-q*.15});
+  if(e==='l')[-1,1].forEach(q=>{S(SG(.13),c,q*.18,2.05,.95,m,.6,3,.5).rotation.z=-q*.15});
+  if(e==='r')[-1,1].forEach(q=>S(SG(.17),c,q*.33,1.78,.95,m));
+  if(e==='a')[-1,1].forEach(q=>{S(CY(.03,.04,.9),0x5a3a1a,q*.25,2.15,.95,m).rotation.z=-q*.35;S(CY(.02,.03,.4),0x5a3a1a,q*.42,2.45,.95,m).rotation.z=-q*.8});
+  const a=t.t;if(a==='b'){S(SG(.4),c,0,1,-1.1,m,.7,.7,1.5).rotation.x=.5;S(SG(.2),0xffffff,0,1.25,-1.6,m)}
+  if(a==='f')S(SG(.28),0xffffff,0,1,-1.05,m);if(a==='s')S(CN(.12,1.1),c,0,1.25,-1.35,m).rotation.x=-1.1;if(a==='n')S(SG(.14),c,0,1.05,-1.05,m);
+  if(k==='d'){S(CN(.1,.6),0xffe9a8,0,1.75,.2,m);S(CN(.1,.5),0xffe9a8,0,1.75,-.4,m);S(CN(.15,2),c,0,.95,-1.9,m).rotation.x=-1.5;
+   m.userData.w=[-1,1].map(q=>{const g=new THREE.Group();S(BX(1.9,.05,1.1),d,q*1.0,0,0,g);g.position.set(q*.5,1.5,-.1);m.add(g);return g});S(new THREE.TorusGeometry(1.1,.05,8,28),0xffe066,0,2.9,0,m).rotation.x=1.57}}
+ else if(k==='b'){S(SG(.6),c,0,1.2,0,m,.9,1.2,.9);S(SG(.45),d,0,1.1,.35,m,.85,1.1,.6);S(SG(.4),c,0,2.05,.15,m);S(CN(.12,.35),0xffb020,0,2,.55,m).rotation.x=1.57;eyes(m,2.15,.42,.2,.13);
+  S(BX(.5,.1,.8),c,0,.9,-.7,m).rotation.x=-.4;[-.2,.2].forEach(x=>S(CY(.05,.05,.5),0xffb020,x,.25,.1,m));
+  m.userData.w=[-1,1].map(q=>{const g=new THREE.Group();fw(g,q,c,d);g.position.set(q*.5,1.3,0);m.add(g);return g})}
+ else if(k==='t'){S(SG(.95),c,0,.75,0,m,1,.65,1.2);S(SG(.9),d,0,.4,0,m,1,.35,1.15);S(SG(.3),0x8fbf6a,0,.75,1.3,m,1,1,1.2);eyes(m,.9,1.5,.15,.06);[[-.6,.7],[.6,.7],[-.6,-.7],[.6,-.7]].forEach(l=>S(SG(.25),0x8fbf6a,l[0],.2,l[1],m,1,.8,1.1));for(let i=0;i<5;i++)S(SG(.18),d,Math.cos(i)*.5,1.15,Math.sin(i*2)*.6,m,1,.4,1)}
+ else{S(SG(.75),c,0,.7,0,m,1,.8,1.1);S(SG(.5),d,0,.5,.4,m,.9,.7,.8);S(SG(.3),c,-.4,1.35,.55,m);S(SG(.3),c,.4,1.35,.55,m);eyes(m,1.55,.65,.4,.16);S(BX(1,.05,.05),0x114411,0,.95,.85,m);[-1,1].forEach(q=>{S(SG(.35),c,q*.75,.3,-.4,m,.5,1,1.2);S(SG(.2),c,q*.5,.2,.7,m,.8,.8,1.2)})}
+ return m}
+function buildHuman(h,o){const ig=new THREE.Group(),A=(g,c,x,y,z,p,a,b,d)=>S(g,c,x,y,z,p||ig,a,b,d),sk=o.skin||0xf0c8a0,pn=o.pants||0x2a2f4a,hr=o.hair||0x2b1a10,dk=0x1b1b24;
+ const lg=[-1,1].map(q=>{const g=new THREE.Group();g.position.set(q*.2,.95,0);A(CY(.14,.11,.9),pn,0,-.45,0,g);A(BX(.26,.14,.42),dk,0,-.93,.07,g);ig.add(g);return g});
+ const ar=[-1,1].map(q=>{const g=new THREE.Group();g.position.set(q*.5,1.95,0);A(SG(.15),o.shirt,0,0,0,g);A(CY(.1,.085,.55),o.shirt,0,-.3,0,g);A(CY(.08,.07,.45),sk,0,-.78,0,g);A(SG(.085),sk,0,-1.03,0,g);ig.add(g);return g});
+ A(SG(.38),pn,0,1.0,0,ig,1,.6,.8);A(CY(.38,.3,.95),o.shirt,0,1.5,0,ig);A(SG(.4),o.shirt,0,1.78,0,ig,1,.7,.75);A(CY(.34,.34,.09),dk,0,1.06,0,ig);A(CY(.1,.11,.18),sk,0,2.12,0,ig);
+ A(SG(.31),sk,0,2.38,0,ig,1,1.08,1);
+ [-1,1].forEach(q=>{A(SG(.07),sk,q*.3,2.36,0,ig,.6,1,.8);A(SG(.06),0xffffff,q*.12,2.4,.27,ig,1,.9,.5);A(SG(.036),o.eye||0x3a2a1a,q*.12,2.4,.3,ig);A(SG(.02),0x050505,q*.12,2.4,.325,ig);A(SG(.012),0xffffff,q*.12+.015,2.42,.333,ig);A(BX(.13,.025,.03),hr,q*.12,2.49,.28,ig).rotation.z=q*.12});
+ A(CN(.04,.12),sk,0,2.3,.31,ig).rotation.x=1.2;A(BX(.1,.02,.03),0x9a4a4a,0,2.2,.29,ig);
+ A(new THREE.SphereGeometry(.34,18,12,0,6.283,0,1.7),hr,0,2.42,-.03,ig);hairFur(ig,hr);A(SG(.18),hr,0,2.55,.2,ig,1.6,.5,.7);
+ if(o.cap){A(new THREE.SphereGeometry(.35,18,12,0,6.283,0,1.5),o.shirt,0,2.46,-.02,ig);A(BX(.5,.05,.4),o.shirt,0,2.5,.38,ig)}
+ if(o.pack)A(BX(.5,.7,.25),0x2d6cdf,0,1.65,-.42,ig);
+ const sh=new THREE.Mesh(new THREE.CircleGeometry(.75,20),new THREE.MeshBasicMaterial({color:0,transparent:true,opacity:.3,depthWrite:false}));sh.rotation.x=-Math.PI/2;sh.position.y=.03;h.add(sh);
+ ig.scale.setScalar(.84);h.add(ig);h.userData.legs=lg;h.userData.arms=ar;return h}
+function human(c,o){TN=1;const h=new THREE.Group();buildHuman(h,Object.assign({shirt:c,hair:[0x2b1a10,0x5a3a1a,0x111111,0x8a4b1f,0xc9a24a][Math.random()*5|0],skin:[0xf0c8a0,0xd9a47a,0xb27a52,0x8a5a3a][Math.random()*4|0],pants:[0x2a2f4a,0x3a3a3a,0x4a3a2a][Math.random()*3|0]},o));TN=0;return h}
+TN=1;while(pl.children.length)pl.remove(pl.children[0]);buildHuman(pl,{shirt:0xe23d4d,pants:0x2d6cdf,hair:0x2b1a10,cap:1,pack:1});TN=0;
+function zoro(){TN=1;const z=zoro0();TN=0;return z}
+function zoro0(){const h=new THREE.Group(),G=0x38b84a;add(CY(.42,.48,1.1),0x1b1b2a,0,1.05,0,h);add(CY(.47,.47,.3),G,0,.62,0,h);add(SG(.36),0xffd2a8,0,1.85,0,h);{const hc=add(new THREE.SphereGeometry(.4,18,12,0,6.283,0,1.75),G,0,1.86,-.03,h);hc.rotation.x=-.12;
+ for(let i=0;i<30;i++){const th=Math.random()*6.283,el=.25+Math.random()*1.2,n=new THREE.Vector3(Math.sin(el)*Math.cos(th),Math.cos(el),Math.sin(el)*Math.sin(th)*.85-.05).normalize();if(n.z>.55&&n.y<.75)continue;const c=add(CN(.075+Math.random()*.03,.26+Math.random()*.16),G,n.x*.4,1.86+n.y*.4,-.03+n.z*.4,h);c.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),n.clone().add(new THREE.Vector3(0,.25,-.35)).normalize())}
+ [-1,1].forEach(q=>add(BX(.05,.16,.1),G,q*.36,1.78,.06,h))}
+ add(BX(.03,.3,.02),0xb04040,.14,1.88,.34,h).rotation.z=.2;[0,.1,.2].forEach(y=>add(SG(.035),0xffd700,-.37,1.78-y,0,h));
+ [-1,1].forEach(q=>{add(CY(.1,.09,.75),0x1b1b2a,q*.58,1.1,0,h).rotation.z=q*.15;add(BX(.26,.12,.36),0x222233,q*.2,.06,.05,h);add(CY(.17,.15,.6),0x2e2e3e,q*.2,.3,0,h);add(SG(.06),0x111111,q*.12,1.88,.32,h)});
+ [0,1,2].forEach(i=>{const w=new THREE.Group();add(BX(.07,.07,1.3),i===1?0xeeeeee:0x3a2a1a,0,0,.2,w);add(BX(.12,.09,.3),0xcccccc,0,0,-.5,w);add(CY(.07,.07,.02),0xd4af37,0,0,-.33,w).rotation.x=1.57;w.position.set(-.5,.78+i*.04,.05);w.rotation.set(-.85,.1+i*.12,.1);h.add(w)});return h}
+const NP=[],GN=[['Ember Gym','Leader Ada',0,[0,1]],['Tide Gym','Leader Ben',1,[2,3]],['Leaf Gym','Leader Cora',2,[4,5]],['Volt Gym','Leader Dax',3,[6,7]],['Frost Gym','Leader Elsa',4,[8,9]],['Stone Gym','Leader Flint',5,[10,0]],['Gale Gym','Leader Gwen',6,[1,3,5]],['Mind Gym','Leader Hugo',9,[0,1,2,3,4,5,6,7,8,9,10]]];
+function bld(x,z,col,w,hh,name){const b=new THREE.Group();add(BX(w,hh,w*.9),col,0,hh/2,0,b);add(CN(w*.85,3.5,4),0x333344,0,hh+1.7,0,b).rotation.y=.785;add(BX(2.2,3.2,.3),0x221a10,0,1.6,w*.45+.1,b);const bm=new THREE.Mesh(CY(.7,.7,40,10),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.28}));bm.position.y=20;b.add(bm);const sg=lab(name,'#ffd700');sg.position.set(0,hh+6,0);sg.scale.set(8,2,1);b.add(sg);b.position.set(x,0,z);sc.add(b);return b}
+const FXA=[];
+function decor(b,e){const A=(g,c,x,y,z)=>add(g,c,x,y,z,b),E=(m,c)=>{m.material.emissive=new THREE.Color(c);return m},Cc=r=>new THREE.CircleGeometry(r,26);
+ if(e===0){for(const x of[-6,-2,2,6]){A(CY(.25,.35,1.6),0x3a2a2a,x,.8,7);const f=E(A(CN(.55,1.6),0xff5a1a,x,2.4,7),0xff3300),g=E(A(CN(.3,1),0xffd23a,x,2.2,7),0xffaa00);FXA.push(t=>{f.scale.set(1,1+.25*Math.sin(t*9+x),1);g.scale.set(1,1.1-.2*Math.sin(t*11+x),1)})}
+  const l=E(A(new THREE.PlaneGeometry(4,14),0xff6a1a,9,.07,2),0xff3300);l.rotation.x=-1.57;[-9,-7].forEach(x=>A(new THREE.DodecahedronGeometry(1.2,0),0x2a2222,x,.7,-2));for(let i=0;i<4;i++)E(A(CN(.7,2.2),0xff5a1a,-3+i*2,6.4,0),0x992200)}
+ if(e===1){const w=A(new THREE.RingGeometry(5.5,9,40),0x3da8ff,0,.06,0);w.rotation.x=-1.57;w.material.transparent=true;FXA.push(t=>{w.material.opacity=.75+.12*Math.sin(t*2)});
+  A(CY(.5,.9,1.2),0xbfe3ff,6,.6,7);const dr=[];for(let i=0;i<10;i++)dr.push(A(SG(.14),0x9fe0ff,6,1.5,7));FXA.push(t=>dr.forEach((d,i)=>{const u=(t*1.6+i*.1)%1;d.position.set(6+Math.cos(i*2.4)*u*1.3,1.3+Math.sin(u*3.14)*2,7+Math.sin(i*2.4)*u*1.3)}));for(const x of[-4,4]){const f=A(BX(1.2,5,.3),0x7fc8ff,x,3.2,4.6);f.material.transparent=true;f.material.opacity=.7}}
+ if(e===2){for(let i=0;i<6;i++)A(SG(.9),0x3fbf4f,-4+i*1.6,6.2,0);for(const x of[-7,7,-9,9]){A(CY(.3,.4,2),0x7a4e25,x,1,5);A(SG(1.4),0x4fb04f,x,3,5)}for(let i=0;i<8;i++)A(SG(.25),[0xff5d8f,0xffe14d,0xffffff][i%3],-5+i*1.4,.3,8);for(const x of[-3,3])A(CY(.1,.1,3),0x2f7f3f,x,1.5,4.7)}
+ if(e===3){for(const x of[-7,-3,3,7]){A(CY(.2,.2,6),0x888899,x,3,6);const o=E(A(SG(.55),0xfff03a,x,6.3,6),0xaaaa00),z=E(A(BX(.1,1.6,.1),0xfffa8a,x,7.3,6),0xffff00);FXA.push(t=>{z.visible=Math.sin(t*14+x)>-.2;z.rotation.z=Math.sin(t*20+x)*.8;o.scale.setScalar(1+.15*Math.sin(t*10+x))})}A(BX(8,.15,.15),0x444455,0,6.2,6)}
+ if(e===4){for(let i=0;i<7;i++){const c=E(A(CN(.6+i%3*.2,2.4+i%3),0xcff6ff,-6+i*2,1.3,6+(i%2)*2),0x2a6a8a);FXA.push(t=>{c.material.emissiveIntensity=.5+.5*Math.sin(t*3+i)})}const p=A(Cc(5),0xe8fbff,0,.06,9);p.rotation.x=-1.57;for(const x of[-7,7])A(SG(1.5),0xffffff,x,.5,2).scale.set(1,.5,1)}
+ if(e===5){for(let i=0;i<7;i++)A(new THREE.DodecahedronGeometry(1+i%3*.5,0),i%2?0x7a7060:0x6a6458,-8+i*2.7,.8,6+(i%2)*2);for(let i=0;i<4;i++)A(CN(.5,3),0x8a8070,-6+i*4,1.5,-3);for(const x of[-2,2])E(A(new THREE.OctahedronGeometry(.8,0),0x66ccee,x,1,8.5),0x226688)}
+ if(e===6){for(const x of[-7,7]){A(CY(.2,.3,7),0xeeeeee,x,3.5,5);const g=new THREE.Group();g.position.set(x,7,5.3);b.add(g);for(let i=0;i<4;i++){const bd=new THREE.Group();bd.rotation.z=i*1.5708;add(BX(.25,3,.5),0xffffff,0,1.5,0,bd);g.add(bd)}FXA.push(t=>{g.rotation.z=t*2.2})}
+  for(let i=0;i<3;i++){const r=A(new THREE.TorusGeometry(1.2,.12,8,24),0xdff6ff,-5+i*5,9.5,0);FXA.push(t=>{r.position.y=9.5+i*.5+Math.sin(t*2+i)*.4;r.rotation.y=t})}}
+ if(e===9){const os=[];for(let i=0;i<5;i++)os.push(E(A(new THREE.OctahedronGeometry(.6,0),0xb388ff,0,0,0),0x5a2a9a));FXA.push(t=>os.forEach((o,i)=>{const a=t*.8+i*1.256;o.position.set(Math.cos(a)*7,3+Math.sin(t*2+i)*.6,Math.sin(a)*7+3);o.rotation.y=t*2}));A(new THREE.TorusGeometry(1.4,.25,8,20,4.4),0xb388ff,0,8,0);for(const x of[-6,6])A(CN(.5,3),0x2a1f4a,x,1.5,5)}}
+GN.forEach((q,i)=>{const a=i*.785+.3,r=150+(i%2)*40,x=Math.cos(a)*r,z=Math.sin(a)*r,el=q[2],col=ELS[el][1],b=bld(x,z,col,9,5,q[0].toUpperCase()+' ('+ELS[el][0]+')');decor(b,el);
+ const h=human(col);h.position.set(x,0,z+7);sc.add(h);const tg=lab(q[1],'#ffd700');tg.position.y=3;h.add(tg);NP.push({g:h,nm:q[1],gym:q[0],sts:q[3],need:5,i,el})});
+{const lx=0,lz=-215,b=bld(lx,lz,0xffd54f,16,8,'INDIGO LEAGUE HALL');
+ [['Elite Ace',[0,1,2,3]],['Elite Brook',[5,6,7]],['Elite Cleo',[4,8,9]],['Elite Dane',[3,4,6,8]],['Champion Rex',[0,1,2,3,4,5,6,7,8,9,10]]].forEach((q,i)=>{const h=human(i===4?0xffd54f:0x6a3fa0);h.position.set(lx-14+i*7,0,lz+11);sc.add(h);const tg=lab(q[0],'#ffd700');tg.position.y=3;h.add(tg);NP.push({g:h,nm:q[0],gym:i===4?'Champion Hall':'League',sts:q[1],need:i===4?9:7,i:10+i,el:(i*3+1)%12,lg:i+1})})}
+function mkTrainer(far){let x,z;do{x=Math.random()*400-200;z=Math.random()*400-200}while(Math.hypot(x-pl.position.x,z-pl.position.z)<(far?60:25)||Math.hypot(x,z)<25);
+ const h=human([0xd32f2f,0x1976d2,0x388e3c,0xf57c00,0x7b1fa2,0x00838f,0xc2185b,0x5d4037][Math.random()*8|0]);h.position.set(x,0,z);sc.add(h);const nm='Trainer '+P(['Rick','Sara','Omar','Lily','Jack','Nina','Paul','Zoe','Ravi','Mei','Tariq','Ana']),tg=lab(nm,'#5ee0ff');tg.position.y=3;h.add(tg);NP.push({g:h,nm,sts:[Math.random()*11|0,Math.random()*11|0],need:3,i:-1})}
+for(let i=0;i<14;i++)mkTrainer();
+
+let mons=[],yaw=0,mode='menu',cur=null,cool=0,caught=0,php=3,shake=0,face=0;const fo=new THREE.Vector3(0,1.5,0),clock=new THREE.Clock(),KC=[...document.querySelectorAll('.kc[data-k]')],AL={w:'arrowup',s:'arrowdown',a:'arrowleft',d:'arrowright'};
+function spawnOne(i,x,z,lg,sh){const t=sh?Object.assign({},T[i],{c:0xffd54a,d:0xfff1b0}):T[i],g=animal(t);if(sh)g.traverse(o=>{if(o.material&&o.material.emissive)o.material.emissive.setHex(0x554400)});g.add(lab(lg?'LEGENDARY':sh?'SHINY '+t.n.toUpperCase():t.n.toUpperCase(),lg||sh?'#ffd700':'#5ee0ff'));g.position.set(x,0,z);sc.add(g);const m={g,t,i,hx:x,hz:z,tx:x,tz:z,ph:Math.random()*6,s:1,hit:0,k:lg?1.7:1,lg,sh};mons.push(m);return m}
+const LS=[[-200,-190],[200,-190],[0,215]];
+function spawnAll(){mons.forEach(m=>sc.remove(m.g));mons=[]}
+LS.forEach((q,j)=>{const b=new THREE.Group();add(new THREE.CylinderGeometry(1.6,2,1,16),0x666677,0,.5,0,b);const cr=add(new THREE.OctahedronGeometry(1,0),0x666666,0,2.2,0,b);cr.scale.set(.7,1.2,.7);b.position.set(q[0],0,q[1]);sc.add(b);const sg=lab('TIME SHRINE '+(j+1),'#ffd700');sg.position.y=4.5;b.add(sg);const bm=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.1,90,12),new THREE.MeshBasicMaterial({color:0xffd700,transparent:true,opacity:.45,fog:false}));bm.position.set(q[0],45,q[1]);bm.visible=false;sc.add(bm);NP.push({g:b,shrine:1,cr,li:48+j,need:3+2*j,nm:T[48+j].n,bm})});
+{const h=zoro();h.position.set(7,0,7);sc.add(h);const tg=lab('Prof. Arvi Viz','#ffffff');tg.position.y=3;h.add(tg);NP.push({g:h,talk:1,nm:'Prof. Arvi Viz'})}
+const show=h=>{$('bx').innerHTML=h;$('bx').className='box';$('ov').className=''},hide=()=>$('ov').className='h',hud=()=>$('hc').textContent='Score '+score+' | Badges '+bdg.size+'/8 | Caught '+caught,hr=n=>'\u2665'.repeat(n)+'\u2661'.repeat(3-n);
+function toast(t){const e=$('ts');e.textContent=t;e.className='';setTimeout(()=>e.className='h',2200)}
+function menu(){mode='menu';show('<h1>GRAMMON QUEST</h1><p class="sm">Grade 8 lessons: Somebody\'s Mother, I Too Had a Dream and The Case of the Fifth Word</p><p>Explore habitats (meadows, caves, power stations, lakes, mountains and dark forests) to find hidden Grammons. Each species asks a different kind of lesson question ('+TQ+' unique questions in this game). Beat NPC trainers, win 8 gym badges and conquer the Indigo League. Legendaries wake at the Time Shrines, and rare shiny Grammons are timed.</p><p class="sm">Look for the tall colored light beams: those are the gyms. '+(TOUCH?'Touch: use the joystick to walk, drag the screen to look around, hold RUN to sprint. ':'')+'Use the buttons above for your Grammodex, leaderboard, PvP and music.</p><p><label>Your trainer name: <input id="nk" maxlength="16" autocomplete="off"></label></p>'+(hasSave()?'<button id="go">Continue (Enter)</button><button id="ng">New Game</button>':'<button id="go">Start (Enter)</button>'));$('nk').value=mpNick;$('go').onclick=hasSave()?cont:start;if($('ng'))$('ng').onclick=()=>{if(confirm('Start a new game? Your saved progress will be replaced.'))start()};$('nk').focus()}
+function start(){setNick();mpOn=true;gId=null;AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.resume)AC.resume();caught=0;score=0;wins=0;dex={};bdg.clear();lgw=0;if(buddy){sc.remove(buddy);buddy=null}NP.forEach(n=>{n.done=0});if(!sgo){sgo=1;song()}hud();spawnAll();pl.position.set(0,0,0);hide();intro()}
+const bdg=new Set();let gs=0,sgo=0,pbm=false,lgw=0,buddy=null,hgT='';
+const DIRW=['north','north-east','east','south-east','south','south-west','west','north-west'];
+function nextGoal(){const n=bdg.size<8?NP.find(q=>q.gym&&!q.lg&&!bdg.has(q.gym)):NP.find(q=>q.lg===lgw+1);if(!n)return null;const dx=n.g.position.x-pl.position.x,dz=n.g.position.z-pl.position.z;return{nm:n.lg?n.nm:n.gym,d:Math.round(Math.hypot(dx,dz)),w:DIRW[(Math.round(Math.atan2(dx,-dz)/(Math.PI/4))+8)%8]}}
+function guideText(){const g=nextGoal();return g?(bdg.size>=8?'You hold all eight badges! The Indigo League Hall is about '+g.d+' meters to the '+g.w+'. Follow the golden beam!':'Your next challenge is the '+g.nm+', about '+g.d+' meters to the '+g.w+'. Follow its glowing beam!'):'You have beaten the whole League!'}
+let lcT='';
+function legGoal(){let r=null;for(const n of NP)if(n.shrine&&!n.done&&bdg.size>=n.need){const dx=n.g.position.x-pl.position.x,dz=n.g.position.z-pl.position.z,d=Math.hypot(dx,dz);if(!r||d<r.d)r={nm:n.nm,d,b:Math.atan2(dx,-dz)}}if(r){r.w=DIRW[(Math.round(r.b/(Math.PI/4))+8)%8];r.d=Math.round(r.d)}return r}
+function legLine(){const g=legGoal();return g?['A Time Shrine is awake! The legendary '+g.nm+' waits about '+g.d+' meters to the '+g.w+'. Follow the golden arrow of your Legendary Compass, or the golden beam of light.']:bdg.size<3?['When you hold 3, 5 and 7 badges, a Time Shrine awakens. Then a golden Legendary Compass will point you straight to it.']:[]}
+function legNews(){return NP.some(n=>n.shrine&&n.need===bdg.size)?['A Time Shrine has awakened! Your golden Legendary Compass now points to it, and a golden beam of light rises from the shrine.']:[]}
+function ending(){dlg('Prof. Arvi Viz',['Incredible! You have conquered the Indigo League and defeated Champion Rex!','From this day on, the world will call you... the GRAMMON MASTER!'],()=>{mode='end';show('<h2>GRAMMON MASTER!</h2><p>You are the champion of the Indigo League! Score: '+score+'</p><button id="go">Keep exploring</button>');$('go').onclick=()=>{hide();mode='play'}})}
+function fight(o){cur=o;mode='battle';o.c=0;php=3;face=Math.atan2(o.g.position.x-pl.position.x,o.g.position.z-pl.position.z);o.g.rotation.y=face+Math.PI;sfx.enc();ask()}
+function ask(){const si=P(cur.sts),q=P(BK[si]),o=q[1].map((t,i)=>({t,c:i===q[2]})).sort(()=>Math.random()-.5),bp=$('bp');bp.className='';aw=cur.timed?1:0;t0=performance.now();TL=cur.tl||10000;
+ bp.innerHTML='<div class="bh"><b>'+cur.nm+'</b><span class="sm">'+cur.sub+' | '+ST[si]+'</span><span class="bar"><i style="width:'+(1-cur.c/cur.need)*100+'%"></i></span><span>You '+hr(php)+'</span>'+(cur.m?'<button id="rn" class="sm">Run away</button>':'')+'</div>'+(cur.timed?'<div class="bar" style="width:100%;margin:2px 0"><i id="tb" style="background:var(--pk);transition:none"></i></div>':'')+'<div class="tp">Tip: '+TIP[si]+'</div><div class="s">'+q[0].replace('___','<b style="color:var(--pk)">_____</b>')+'</div>'+o.map((x,i)=>'<button class="o" data-c="'+(x.c?1:0)+'">'+(i+1)+'. '+x.t+'</button>').join('')+'<div id="fb"></div>';
+ bp.querySelectorAll('.o').forEach(b=>b.onclick=()=>answer(b,q));if(cur.m)$('rn').onclick=()=>{aw=0;bp.className='h';mode='play';cool=clock.elapsedTime+3;cur.m.s=.99;toast('Got away safely!')}}
+function answer(b,q){aw=0;const ok=b.dataset.c==='1',bp=$('bp');bp.querySelectorAll('.o').forEach(x=>{x.disabled=true;if(x.dataset.c==='1')x.classList.add('ok')});
+ if(ok){sfx.ok();cur.c++;if(cur.m)cur.m.hit=.5;bp.querySelector('.bar i').style.width=(1-cur.c/cur.need)*100+'%'}else{sfx.no();b.classList.add('no');php--;shake=.4}
+ $('fb').innerHTML='<p><b>'+(ok?'Super effective!':'Ouch!')+'</b> '+q[3]+'</p><button id="nx">Continue (Enter)</button>';
+ $('nx').onclick=()=>{const o=cur;if(o.c>=o.need){bp.className='h';mode='play';cool=clock.elapsedTime+2;sfx.win();burst(o.g.position);o.win();save();hud()}else if(php<=0){bp.className='h';mode='play';cool=clock.elapsedTime+3;o.lose()}else ask()};$('nx').focus()}
+const ALLS=[0,1,2,3,4,5,6,7,8,9,10];
+function catchIt(m){m.s=.99;caught++;dex[m.t.n]=(dex[m.t.n]||0)+1;if(m.sh)dex[m.t.n+'*']=1;const pt=m.lg?500:m.sh?600:100;score+=pt;toast('You caught '+(m.sh?'the SHINY ':'')+m.t.n+'! +'+pt);if(m.shr)m.shr.done=1}
+function wildFight(m){fight({g:m.g,m,nm:m.t.n,sub:m.lg?'LEGENDARY (10s timer)':m.sh?'SHINY Grammon (15s timer)':'Wild '+m.t.ty+' Grammon',sts:m.lg||m.sh?ALLS:m.t.st,need:m.lg?5:m.sh?4:3,timed:m.lg||m.sh,tl:m.sh?15000:10000,win:()=>catchIt(m),lose:()=>{m.s=.99;if(m.lg){pl.position.set(0,0,0);toast('The legend vanished. Return to the shrine to try again!')}else toast(m.t.n+' ran away!')}})}
+function encounter(zn){const el=P(zn?zn.els:[2]),L=[];T.forEach((t,i)=>{if(!t.lg&&t.el===el)L.push(i)});const sh=Math.random()<.012,x=pl.position.x+Math.sin(face)*3.6,z=pl.position.z+Math.cos(face)*3.6,m=spawnOne(P(L),x,z,0,sh);m.pop=.5;burst(new THREE.Vector3(x,0,z));trans((sh?'A SHINY ':'A wild ')+m.t.n+' appeared!',()=>wildFight(m))}
+function trans(t,cb){$('bp').className='h';mode='tr';const f=$('fx');f.className='';f.innerHTML='<b>'+t+'</b>';sfx.enc();setTimeout(()=>{cb();f.className='fo';setTimeout(()=>f.className='h',500)},1900)}
+let voOn=true,PV_=null;
+function pv(){if(PV_)return PV_;const vs=window.speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(!vs.length)return null;const f=v=>(/natural|neural|online/i.test(v.name)?6:0)+(/guy|ryan|davis|brian|christopher|eric|roger|steffan|male|daniel|david|george|alex|arthur|mark|james|rishi/i.test(v.name)&&!/female/i.test(v.name)?4:0)+(/en-(GB|US|AU|IN)/i.test(v.lang)?1:0)-(/female|zira|samantha|hazel|susan|karen|fiona|moira|tessa|victoria|aria|jenny|sonia|libby|emma|michelle|ava|allison|nancy|jane|sara/i.test(v.name)?8:0);vs.sort((a,b)=>f(b)-f(a));PV_=vs[0];return PV_}
+try{window.speechSynthesis.onvoiceschanged=()=>{PV_=null}}catch(e){}
+function say(t,done){const est=Math.max(1500,t.length*55);let d=0;const fin=()=>{if(!d){d=1;if(done)done()}};if(!voOn){setTimeout(fin,est);return}
+ try{const S=window.speechSynthesis;S.cancel();const ch=t.match(/[^.!?]+[.!?]*/g)||[t];let st=false;ch.forEach((c,i)=>{const u=new SpeechSynthesisUtterance(c.trim()),v=pv();if(v)u.voice=v;u.pitch=.82+(i%3)*.04;u.rate=.96;u.onstart=()=>{st=true};if(i===ch.length-1)u.onend=fin;u.onerror=()=>setTimeout(fin,est);S.speak(u)});setTimeout(()=>{if(!st)fin()},2500);setTimeout(fin,est*2.5+4000)}catch(e){setTimeout(fin,est)}}
+$('bs').onclick=()=>{voOn=!voOn;$('bs').textContent=voOn?'Voice: on':'Voice: off';if(!voOn)try{window.speechSynthesis.cancel()}catch(e){}};
+let anim=[];const lunge=(a,b)=>anim.push({g:a,t:.6,bx:a.position.x,bz:a.position.z,dx:(b.position.x-a.position.x)*.7,dz:(b.position.z-a.position.z)*.7}),pulse=a=>anim.push({g:a,t:.6,bx:a.position.x,bz:a.position.z,p:1});
+function dlg(sp,L,cb){mode='talk';let i=0;const bp=$('bp'),pf=/^Prof/.test(sp),fin=()=>{bp.className='h';if(pf)try{window.speechSynthesis.cancel()}catch(e){}if(cb)cb();else{mode='play';cool=clock.elapsedTime+3}},go=()=>{bp.className='';bp.innerHTML='<div class="s"><b style="color:var(--pk)">'+sp+':</b> '+L[i]+'</div><button id="dn">Next (Enter)</button>'+(pf&&L.length>1?'<button id="sk" class="sm">Skip all</button>':'');$('dn').onclick=()=>{if(++i<L.length)go();else fin()};if(pf&&L.length>1)$('sk').onclick=fin;$('dn').focus();if(pf)say(L[i])};go()}
+let cs=null;
+const LES=[{n:"Somebody's Mother",lines:["Lesson one: the poem Somebody's Mother, by Mary Dow Brine. On a snowy winter day an old, ragged and grey woman stands alone at a crossing, bent with the chill. Boys hurry past her, glad that school has let out, and nobody offers a helping hand.","At last the gayest boy of the group stops, whispers I'll help you cross, and guides her trembling feet along. He tells his friends, she's somebody's mother, and he hopes someone will help his own mother one day. That night the old woman prays God be kind to the noble boy, who is somebody's son.","The theme is empathy and compassion, generational respect and the golden rule. Remember the devices: repetition in old and ragged and grey, and a simile in came the boys like a flock of sheep. In this poem, ragged means old and torn clothes."]},
+{n:'I Too Had a Dream',lines:['Lesson two: I Too Had a Dream, a letter from Verghese Kurien to his grandson Siddharth, written in Anand in 2005. He says we are addicted to instant communication, but a telephone call gives only a fleeting joy, while a letter becomes a possession that can be treasured and re-read, with abiding pleasure.','Kurien started his working life soon after independence, dreaming of an India free from hunger and poverty. About fifty years ago he agreed to work for a small cooperative of dairy farmers. He could have become a chief executive, an Army general or a successful NRI, but he chose to serve in Anand, Gujarat, and his wife ardently supported him.','His message: integrity, being honest to yourself, is the most important value. Life is a privilege, and failure is not putting in your best effort for the common good. He was awarded the Padma Vibhushan in 1999, and he told Siddharth to earn his own reward. Who says one man cannot make a change?']},
+{n:'The Case of the Fifth Word',lines:['Lesson three: The Case of the Fifth Word, by Donald J. Sobol. Encyclopedia Brown, whose real name is Leroy, lives in Idaville and secretly helps his father, the Chief of Police, solve mysteries. He is called Encyclopedia because his head is filled with facts.','Tim Nolan has died. Five years ago two masked men stole a million dollars of jewellery from the Diamond Mart, and the Chief believes Nolan and his friend Daniel Davenport did it. Nolan\'s will leaves his palm-tree nursery to Davenport, with a calendar sheet clipped to it that reads Nom Utes Sweden Hurts.','Encyclopedia solves the code. Nolan dropped the letters d a y, so Nom is Monday, Utes is Tuesday, Sweden is Wednesday and Hurts is Thursday. The unwritten fifth word was Fir, or Friday. The jewellery was hidden in a jug of earth under the young fir tree in the nursery.']},
+{n:'Fact and Opinion',lines:["Lesson four: fact and opinion. A fact is something that can be proven true or false. It is not based on people's beliefs. An opinion is a belief, feeling or judgement. It can vary from person to person and it cannot be proven.",'Examples from Encyclopedia Brown: Encyclopedia\'s father was the Chief of Police, a fact. Two masked men held up the Diamond Mart, a fact. Everyone thought Chief Brown was the smartest police chief in the country, an opinion. Leroy\'s friends said he was like a library and computer in one, an opinion.','Examples from Kurien\'s letter: he was awarded the Padma Vibhushan in 1999, a fact. Speaking on the telephone only gives a fleeting joy, and integrity is the most important value, are opinions. Also learn the word case: situation, matter, container and writing format.']}];
+const XT=[["Ragged has other meanings too. A ragged coastline has an uneven edge. Ragged breathing is not smooth or regular. And, informally, ragged means very tired after effort.","Contrast the two: her feet were aged and slow and trembling, while his feet were firm and strong. The boy felt proud, and his young heart was happy and well content."],['Key words: addicted means dependent on something, fleeting means short-lived, abiding pleasure is happiness that lasts, jottings are brief notes, foremost means leading, humility is modesty, and pursue means follow.','More words: envisioned means imagined, ardently shows strong feeling, poise is calm confidence, adhered means continued to support, integrity is honest and strong moral principles, correlation is a connection, and musings are long careful thoughts.'],['Key words: nickname is a pet name, hold-ups are robberies with threat or violence, a nursery grows young plants for sale, to testify is to make a statement in court, a hunch is a strong feeling, and loot is stolen goods.','More words: a stroke is a sudden serious illness, a will is a legal document about property after death, leafed through means quickly turned the pages, confessed means admitted, a code is a hidden message, and foreseen means predicted.'],['An anagram is a word or phrase made by rearranging the letters of another. Neat is an anagram of a net. In the crossword, aces makes case, tool makes loot, heart makes earth, and sword makes words.','The word case has many meanings. Not the case means not the situation. A court case is a legal matter. A pencil case is a container. Title case is a writing format.']];
+const LESD=LES.map((l,i)=>({n:l.n,lines:l.lines.concat(XT[i])}));
+const CL=[['Welcome, young trainer! I am Professor Arvi Viz.'],['This is the Grammon world, a vast land where fifty-one kinds of creatures are born from the power of words.'],['Rule one: walk with W A S D, or the joystick on a phone. Drag the mouse or the screen to turn the camera.'],['Rule two: wild Grammons live in habitats that match their element. Grass and bug types hide in the meadows. Fire, rock and ground types live in caves. Electric types haunt abandoned power stations. Water types stay near the lakes. Wind, ice and fighting types roam the mountains, and dark and psychic types lurk in the dark forests. Walk through a habitat, and one may jump out at you!','s'],['In a wild battle, answer questions about your lessons correctly to catch it. A wrong answer costs a heart, and you can always run away.'],['Beware of shiny Grammons! They are very rare, golden, and give you only fifteen seconds for each question.','y'],['Your first partner will travel by your side. In trainer and gym battles, your Grammons fight in turns. Pick Attack, Power Move or Heal, and answer to make the move work.'],['Beat the trainers, then challenge the eight elemental gyms. Each gym leader will guide you to the next one.'],['With all eight badges, enter the Indigo League in the far north. Defeat the Elite Four and Champion Rex to become the Grammon Master!'],['Legend says three Time Dragons sleep in ancient shrines. They awaken for trainers with three, five and seven badges.','l'],['But first, class is in session! Listen closely, because knowledge is the real power of every trainer.']].concat(LES.flatMap(l=>l.lines.map(x=>[x]))).concat([['Class dismissed! You can ask me for any lesson again at any time. Now choose your first partner!']]);
+function lessonMenu(){const bp=$('bp');mode='talk';bp.className='';bp.innerHTML='<div class="s"><b style="color:var(--pk)">Prof. Arvi Viz:</b> Would you like a lesson?</div>'+LESD.map((l,i)=>'<button class="o" data-i="'+i+'">'+l.n+' lesson</button>').join('')+'<button class="o" data-i="-1">Not now</button>';bp.querySelectorAll('.o').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(i<0){bp.className='h';mode='play';cool=clock.elapsedTime+3;const pf2=NP.find(q=>q.talk);if(pf2)pf2.cd=clock.elapsedTime+25}else dlg('Prof. Arvi Viz',LESD[i].lines,()=>lessonMenu())})}
+function intro(){mode='cut';const PF=NP.find(n=>n.talk),c=PF.g.position;cs={c,t:0,i:0,PF,kids:[],n:0,txt:''};$('cb').className='';$('cx').className='';cam.position.set(c.x+4,2.4,c.z+6);cut1()}
+function cutKids(ix,k,sh){cs.kids.forEach(g=>sc.remove(g));cs.kids=ix.map((i,j)=>{const g=animal(sh?Object.assign({},T[i],{c:0xffd54a,d:0xfff1b0}):T[i]),a=j*6.283/ix.length+.5,r=k?5:2.8;g.position.set(cs.c.x+Math.sin(a)*r,0,cs.c.z+Math.cos(a)*r-(k?2:0));g.rotation.y=a+Math.PI;g.userData.t0=cs.t;g.userData.k=k||1;sc.add(g);burst(g.position);return g})}
+function cut1(){const L=CL[cs.i];cs.txt=L[0];cs.n=0;if(L[1]==='s')cutKids([0,22,23]);if(L[1]==='y')cutKids([5],0,1);if(L[1]==='l')cutKids([48],1.7);clearInterval(cs.tw);
+ $('cx').innerHTML='<b style="color:var(--pk)">Prof. Arvi Viz</b><p id="ct"></p><button id="cn">Next (Enter)</button><button id="cks" class="sm">Skip all</button>';$('cn').onclick=cnext;$('cks').onclick=cend;
+ cs.rdy=false;cs.td=false;cs.sd=false;const ci=cs.i,cc=()=>{if(cs.td&&cs.sd&&cs.i===ci){cs.rdy=true;const b=$('cn');if(b)b.disabled=false}};say(L[0],()=>{cs.sd=true;cc()});
+ cs.tw=setInterval(()=>{cs.n+=2;$('ct').textContent=cs.txt.slice(0,cs.n);if(cs.n>=cs.txt.length){clearInterval(cs.tw);cs.td=true;cc()}},28)}
+function cnext(){if(++cs.i<CL.length)cut1();else cend()}
+function cend(){clearInterval(cs.tw);try{window.speechSynthesis.cancel()}catch(e){}$('cb').className='h';$('cx').className='h';cs.kids.forEach(g=>sc.remove(g));cs.PF.g.rotation.y=0;cs.PF.g.position.y=0;cs.kids=[];starter()}
+function starter(){const bp=$('bp');mode='talk';bp.className='';bp.innerHTML='<div class="s"><b style="color:var(--pk)">Prof. Arvi Viz:</b> Choose your first Grammon!</div>'+[0,22,23].map(i=>'<button class="o" data-i="'+i+'">'+T[i].n+' ('+T[i].ty+' type)</button>').join('');bp.querySelectorAll('.o').forEach(b=>b.onclick=()=>{const t=T[+b.dataset.i];dex[t.n]=1;caught=1;if(buddy)sc.remove(buddy);buddy=animal(t);buddy.userData.si=T.indexOf(t);buddy.scale.setScalar(.75);buddy.position.set(pl.position.x-2,0,pl.position.z-2);sc.add(buddy);hud();sfx.win();bp.className='h';dlg('Prof. Arvi Viz',['Wonderful! Take good care of '+t.n+'. Walk into the tall grass to begin your adventure!'])})}
+function wildLeg(n){const q=LS[n.li-48],m=spawnOne(n.li,q[0]+3,q[1]+3,1);m.shr=n;m.pop=.8;burst(m.g.position);trans('The legendary '+m.t.n+' awakens!',()=>wildFight(m))}
+function startNpc(n){
+ if(n.talk){n.cd=clock.elapsedTime+25;const b=bdg.size;dlg(n.nm,(b>=8?['Magnificent! All eight badges! The Indigo League Hall in the far north awaits you.','Defeat the Elite Four and Champion Rex to become the Grammon Master!']:b>0?['You have '+b+' of 8 badges. Eight badges open the Indigo League.','The Time Shrines awaken at 3, 5 and 7 badges.',guideText()]:['Walk through tall grass to meet wild Grammons. Win badges at the colored gyms.',guideText(),'Beat the NPC trainers to grow stronger. Good luck!']).concat(legLine(),['Now, listen closely. Here is everything you need to know about the lessons of this world.'],LESD.flatMap(l=>l.lines)),()=>lessonMenu());return}
+ if(n.shrine){if(bdg.size<n.need){n.cd=clock.elapsedTime+12;dlg('Ancient voice',['The shrine is sealed. Return with '+n.need+' gym badges.']);return}dlg('Ancient voice',['The Time Shrine glows brightly. '+n.nm+' awakens! Answer fast, trainer!'],()=>wildLeg(n));return}
+ if(n.lg){if(bdg.size<8){toast('Win 8 gym badges to enter the League!');cool=clock.elapsedTime+3;return}if(lgw<n.lg-1){toast('Defeat the previous League member first!');cool=clock.elapsedTime+3;return}}
+ n.op=n.op??P(T.map((t,i)=>i).filter(i=>!T[i].lg&&(n.el===undefined||T[i].el===n.el)));dlg(n.nm,[P(["My Grammons never lose a battle!","Let's see how well you remember your lessons!","You walked into my path, so let's battle!"]),'Go, '+T[n.op].n+'!'],()=>nchoice(n))}
+function nchoice(n){const bp=$('bp');mode='talk';bp.className='';bp.innerHTML='<div class="s"><b style="color:var(--pk)">'+n.nm+':</b> Will you battle me?</div><button class="o" id="bt">Battle!</button><button class="o" id="rr">Run away</button>';$('bt').onclick=()=>pick(n);$('rr').onclick=()=>{bp.className='h';const dx=pl.position.x-n.g.position.x,dz=pl.position.z-n.g.position.z,d=Math.hypot(dx,dz)||1;pl.position.x=n.g.position.x+dx/d*5;pl.position.z=n.g.position.z+dz/d*5;face=Math.atan2(dx,dz);n.cd=clock.elapsedTime+20;cool=clock.elapsedTime+3;mode='play';toast('You ran away from '+n.nm+'!')}}
+function pick(n){const tm=T.map((t,i)=>i).filter(i=>dex[T[i].n]);if(!tm.length){dlg('Prof. Arvi Viz',['Catch a Grammon first!']);return}if(tm.length===1)return tf(n,tm[0]);const bp=$('bp');bp.className='';bp.innerHTML='<div class="s">Choose your Grammon!</div>'+tm.map(i=>'<button class="o" data-i="'+i+'">'+T[i].n+' ('+T[i].ty+')</button>').join('');bp.querySelectorAll('.o').forEach(b=>b.onclick=()=>tf(n,+b.dataset.i))}
+function tf(n,mi){trans((n.lg?'LEAGUE ':n.gym?'GYM LEADER ':'TRAINER ')+n.nm.toUpperCase()+' wants to battle!',()=>tf0(n,mi))}
+function tf0(n,mi){const oi=n.op,A=animal(T[mi]),Bg=animal(T[oi]),dx=n.g.position.x-pl.position.x,dz=n.g.position.z-pl.position.z,d=Math.hypot(dx,dz)||1,ux=dx/d,uz=dz/d;
+ A.position.set(pl.position.x-uz*2.2,0,pl.position.z+ux*2.2);Bg.position.set(n.g.position.x+uz*2.2,0,n.g.position.z-ux*2.2);A.rotation.y=Math.atan2(dx,dz);Bg.rotation.y=Math.atan2(-dx,-dz);face=Math.atan2(dx,dz);sc.add(A,Bg);burst(A.position);burst(Bg.position);
+ const mx=n.lg?55+n.lg*4:n.gym?45:32;cur={g:Bg,team:1,A,Bg,nm:n.nm,sub:n.gym||'NPC trainer',sts:n.sts,me:{i:mi,hp:40,mx:40},op:{i:oi,hp:mx,mx},dm:n.lg?9+n.lg:n.gym?8:6,gym:n.gym,
+  win:()=>{endTF();n.done=1;n.g.children.forEach(c=>{if(c.material&&c.material.color)c.material.color.multiplyScalar(.5)});if(n.lg){lgw=n.lg;score+=600;sfx.badge();if(n.lg===5)ending();else dlg(n.nm,['Well fought! The next League member awaits.'])}else if(n.gym){bdg.add(n.gym);score+=400;sfx.badge();dlg(n.nm,['Brilliant battle! You earned the '+n.gym.split(' ')[0]+' Badge.',guideText()].concat(legNews()))}else{score+=150;toast('You beat '+n.nm+'! +150');setTimeout(()=>{sc.remove(n.g);const k=NP.indexOf(n);if(k>=0)NP.splice(k,1);setTimeout(()=>mkTrainer(1),9000)},5000)}},
+  lose:()=>{endTF();toast(n.nm+' wins this round. Train and come back!')}};mode='battle';sfx.enc();tmenu()}
+function endTF(){sc.remove(cur.A);sc.remove(cur.Bg)}
+function tmenu(){const o=cur,bp=$('bp');bp.className='';bp.innerHTML='<div class="bh"><b>'+T[o.me.i].n+'</b><span class="bar"><i style="width:'+Math.max(0,o.me.hp)/o.me.mx*100+'%"></i></span><span class="sm">vs</span><b>'+T[o.op.i].n+'</b><span class="bar"><i style="width:'+Math.max(0,o.op.hp)/o.op.mx*100+'%;background:var(--no)"></i></span></div><div class="sm">'+o.nm+' | choose a move, then answer correctly to make it work</div><button class="o" data-m="0">1. Attack (easy question, 10 damage)</button><button class="o" data-m="1">2. Power Move (hard question, 22 damage)</button><button class="o" data-m="2">3. Heal (+12 HP)</button>';bp.querySelectorAll('.o').forEach(b=>b.onclick=()=>tq(+b.dataset.m))}
+function tq(mv){const o=cur,si=P(mv===1?[4,6,8,3]:mv===2?[0,5]:o.sts),q=P(BK[si]),op=q[1].map((t,i)=>({t,c:i===q[2]})).sort(()=>Math.random()-.5),bp=$('bp');
+ bp.innerHTML='<div class="sm">'+['Attack','Power Move','Heal'][mv]+' | '+ST[si]+'</div><div class="tp">Tip: '+TIP[si]+'</div><div class="s">'+q[0].replace('___','<b style="color:var(--pk)">_____</b>')+'</div>'+op.map((x,i)=>'<button class="o" data-c="'+(x.c?1:0)+'">'+(i+1)+'. '+x.t+'</button>').join('')+'<div id="fb"></div>';
+ bp.querySelectorAll('.o').forEach(b=>b.onclick=()=>{const ok=b.dataset.c==='1';bp.querySelectorAll('.o').forEach(x=>{x.disabled=true;if(x.dataset.c==='1')x.classList.add('ok')});if(!ok)b.classList.add('no');ok?sfx.ok():sfx.no();
+  let t='';if(ok){if(mv===2){o.me.hp=Math.min(o.me.mx,o.me.hp+12);t='You healed 12 HP!'}else{const dm=mv?22:10;o.op.hp-=dm;lunge(o.A,o.Bg);pulse(o.Bg);t=T[o.me.i].n+' hits for '+dm+'!'}}else t='Wrong answer, your move failed. '+q[3];
+  if(o.op.hp>0){o.me.hp-=o.dm;lunge(o.Bg,o.A);pulse(o.A);shake=.3;t+=' '+T[o.op.i].n+' hits back for '+o.dm+'!'}
+  $('fb').innerHTML='<p>'+t+'</p><button id="nx">Continue (Enter)</button>';$('nx').onclick=()=>{bp.className='h';if(o.op.hp<=0){mode='play';cool=clock.elapsedTime+3;sfx.win();burst(o.Bg.position);o.win();save();hud()}else if(o.me.hp<=0){mode='play';cool=clock.elapsedTime+3;o.lose()}else tmenu()};$('nx').focus()})}
+addEventListener('keydown',e=>{const c=e.key.toLowerCase();if(e.target&&e.target.tagName==='INPUT'&&c!=='enter')return;k[c]=1;if(c.startsWith('arrow')||c===' ')e.preventDefault();
+ if(mode==='menu'&&c==='enter')(hasSave()?cont:start)();
+ if(mode==='play'&&!e.repeat){if(c==='f'){const id=nearest();if(id)challenge(id);else toast('Walk up to another trainer to challenge them.')}if(c==='t')chatMenu()}
+ if(mode==='talk'&&(c==='enter'||c===' ')&&!e.repeat){const n=$('dn');if(n)n.click()}
+ if(mode==='cut'&&cs&&(c==='enter'||c===' ')&&!e.repeat)cnext();
+ if(mode==='battle'||mode==='duel'){const o=document.querySelectorAll('#bp .o:not(:disabled)');if('123'.includes(c)&&o[+c-1])o[+c-1].click();if(c==='enter'){const n=$('nx');if(n)n.click()}}});
+addEventListener('keyup',e=>k[e.key.toLowerCase()]=0);addEventListener('blur',()=>{for(const q in k)k[q]=0});
+let dr=0;R.domElement.onmousedown=()=>dr=1;addEventListener('mouseup',()=>dr=0);addEventListener('mousemove',e=>{if(dr)yaw-=e.movementX*.006});
+function loop(){const dt=Math.min(clock.getDelta(),.05),T0=clock.elapsedTime,K=(a,b)=>k[a]||k[b]?1:0;let mv=0;
+ if(mode==='play'||mode==='menu'){if(k.q)yaw+=dt*1.8;if(k.e)yaw-=dt*1.8}
+ if(mode==='play'){const f=K('w','arrowup')-K('s','arrowdown'),r=K('d','arrowright')-K('a','arrowleft');
+  let dx=-Math.sin(yaw)*f+Math.cos(yaw)*r,dz=-Math.cos(yaw)*f-Math.sin(yaw)*r;const l=Math.hypot(dx,dz);
+  if(l){mv=1;dx/=l;dz/=l;const sp=k.shift?13:7.5;pl.position.x+=dx*sp*dt;pl.position.z+=dz*sp*dt;face=Math.atan2(dx,dz)}
+  pl.position.x=Math.max(-225,Math.min(225,pl.position.x));pl.position.z=Math.max(-225,Math.min(225,pl.position.z));
+  trees.forEach(t=>{const ex=pl.position.x-t[0],ez=pl.position.z-t[1],d=Math.hypot(ex,ez)||1;if(d<1.2){pl.position.x=t[0]+ex/d*1.2;pl.position.z=t[1]+ez/d*1.2}});COL.forEach(c=>{const ex=pl.position.x-c[0],ez=pl.position.z-c[1],d=Math.hypot(ex,ez)||1;if(d<c[2]){pl.position.x=c[0]+ex/d*c[2];pl.position.z=c[1]+ez/d*c[2]}})}
+ pl.rotation.y+=Math.atan2(Math.sin(face-pl.rotation.y),Math.cos(face-pl.rotation.y))*Math.min(1,dt*12);
+ if(mode==='play'&&mv){gs+=(k.shift?13:7.5)*dt;if(gs>3.5){gs=0;const zn=zoneAt(pl.position.x,pl.position.z);if(zn){sfx.rustle();if(Math.random()<.3)encounter(zn)}}}
+ const sw=mv?Math.sin(T0*12)*.6:0;{const u=pl.userData;if(u.legs){u.legs[0].rotation.x=sw;u.legs[1].rotation.x=-sw;u.arms[0].rotation.x=-sw*.8;u.arms[1].rotation.x=sw*.8}}pl.position.y=mv?Math.abs(Math.sin(T0*12))*.08:0;
+ for(let i=mons.length-1;i>=0;i--){const m=mons[i],p=m.g.position;
+  if(m.s<1){m.s-=dt*1.2;m.g.rotation.y+=dt*10;m.g.scale.setScalar(Math.max(m.s,0)*m.k);if(m.s<=0){sc.remove(m.g);mons.splice(i,1)}continue}
+  if(!(mode==='battle'&&cur&&cur.m===m)){if(Math.hypot(m.tx-p.x,m.tz-p.z)<.6){const a=Math.random()*6.28,r=3+Math.random()*(m.lg?6:16);m.tx=m.hx+Math.cos(a)*r;m.tz=m.hz+Math.sin(a)*r}
+   const a=Math.atan2(m.tx-p.x,m.tz-p.z);const sp=m.lg?2.4:1.4;p.x+=Math.sin(a)*sp*dt;p.z+=Math.cos(a)*sp*dt;m.g.rotation.y=a}
+  const w=m.g.userData.w;if(w){w[0].rotation.z=.4+Math.sin(T0*6)*.4;w[1].rotation.z=-w[0].rotation.z}p.y=Math.abs(Math.sin(T0*4+m.ph))*.25;if(m.hit>0)m.hit-=dt;{const hs=(m.hit>0?1+Math.sin(m.hit*20)*.25:1)*(m.pop>0?(m.pop-=dt,1-Math.max(m.pop,0)/.5):1);m.g.scale.set(m.k*hs,m.k*hs*(1+Math.sin(T0*3+m.ph)*.03),m.k*hs)};
+  if(mode==='play'&&T0>cool&&Math.hypot(p.x-pl.position.x,p.z-pl.position.z)<2.6)wildFight(m)}
+ clouds.forEach(c=>{c.position.x+=dt*2;if(c.position.x>260)c.position.x=-260});
+ if(aw){const f=1-(performance.now()-t0)/TL,e=$('tb');if(e)e.style.width=Math.max(0,f*100)+'%';if(f<=0){aw=0;const w=[...document.querySelectorAll('#bp .o')].find(x=>x.dataset.c==='0');if(w)w.click()}}
+ parts=parts.filter(q=>{q.m.position.addScaledVector(q.v,dt);q.v.y-=6*dt;q.l-=dt;if(q.l<=0){sc.remove(q.m);return false}return true});
+ sun.position.set(pl.position.x+30,50,pl.position.z+20);sun.target.position.copy(pl.position);sun.target.updateMatrixWorld();if(mode==='cut'&&cs){const g=cs.PF.g;g.rotation.y=Math.atan2(cam.position.x-g.position.x,cam.position.z-g.position.z);g.position.y=cs.n<cs.txt.length?Math.abs(Math.sin(T0*9))*.07:0;cs.kids.forEach((k,j)=>{const u=k.userData;k.scale.setScalar(Math.min(1,(cs.t-u.t0)*2.2)*u.k);k.position.y=Math.abs(Math.sin(cs.t*3+j))*.15;if(u.w){u.w[0].rotation.z=.4+Math.sin(cs.t*6)*.4;u.w[1].rotation.z=-u.w[0].rotation.z}})}
+ anim=anim.filter(a=>{a.t-=dt;const f=Math.sin(Math.PI*Math.max(a.t,0)/.6);if(a.dx!==undefined){a.g.position.x=a.bx+a.dx*f;a.g.position.z=a.bz+a.dz*f}if(a.p)a.g.scale.setScalar(1+.3*f);if(a.t<=0){a.g.position.x=a.bx;a.g.position.z=a.bz;a.g.scale.setScalar(1)}return a.t>0});
+ if(cur&&cur.team&&mode==='battle'){cur.A.position.y=Math.abs(Math.sin(T0*3))*.15;cur.Bg.position.y=Math.abs(Math.sin(T0*3+1))*.15}
+ NP.forEach(n=>{if(n.shrine){n.cr.rotation.y+=dt;n.cr.material.color.set(n.done?0x4fffd0:bdg.size>=n.need?0xffd700:0x666666)}else if(mode==='play'){const dx=pl.position.x-n.g.position.x,dz=pl.position.z-n.g.position.z;if(Math.hypot(dx,dz)<9)n.g.rotation.y=Math.atan2(dx,dz);n.g.position.y=Math.abs(Math.sin(T0*2+n.g.position.x))*.04}});
+ mons.forEach(m=>{if(m.sh&&m.s>=1&&Math.random()<.03)burst(m.g.position)});
+ if(buddy){buddy.visible=mode==='play'||mode==='talk'||mode==='cut';const d=Math.hypot(pl.position.x-buddy.position.x,pl.position.z-buddy.position.z),tx=pl.position.x-Math.sin(pl.rotation.y)*2.6+Math.cos(pl.rotation.y)*1.2,tz=pl.position.z-Math.cos(pl.rotation.y)*2.6-Math.sin(pl.rotation.y)*1.2;
+  if(d>2.2){const kk=Math.min(1,dt*(d>12?8:3.2)),ox=buddy.position.x,oz=buddy.position.z;buddy.position.x+=(tx-ox)*kk;buddy.position.z+=(tz-oz)*kk;const dx=buddy.position.x-ox,dz=buddy.position.z-oz;if(Math.hypot(dx,dz)>.001)buddy.rotation.y=Math.atan2(dx,dz)}buddy.position.y=Math.abs(Math.sin(T0*5))*(d>2.3?.2:.03)}
+ if(mode==='play'){const g=nextGoal(),t=g?'Next: '+g.nm+' | '+g.d+' m '+g.w:'';if(t!==hgT){hgT=t;$('hg').textContent=t}}
+ mpTick(T0,dt);guideTick(T0,dt);worldTick(T0);
+ {const bm=['battle','duel','talk'].includes(mode);if(bm!==pbm){pbm=bm;rs()}}
+ FF.rotation.y+=dt*.03;FF.position.y=Math.sin(T0)*.5;
+ {$('cp').classList.toggle('h',mode!=='play');$('cd').style.transform='rotate('+yaw+'rad)';const lg=legGoal();$('lc').classList.toggle('h',mode!=='play'||!lg);if(lg){$('la').style.transform='rotate('+(lg.b+yaw)+'rad)';$('lc').classList.toggle('cl',lg.d<40);const t=lg.nm+'\n'+lg.d+' m '+lg.w.split('-').map(x=>x[0].toUpperCase()).join('');if(t!==lcT){lcT=t;$('lt').textContent=t}}for(const n of NP)if(n.shrine)n.bm.visible=!n.done&&bdg.size>=n.need}
+ if(mode==='play'&&T0>cool)for(const n of NP)if(!n.done&&(!n.cd||T0>n.cd)&&Math.hypot(n.g.position.x-pl.position.x,n.g.position.z-pl.position.z)<3.4){startNpc(n);break}
+ const b=mode==='battle'&&cur,foc=b?new THREE.Vector3((pl.position.x+cur.g.position.x)/2,.6,(pl.position.z+cur.g.position.z)/2):new THREE.Vector3(pl.position.x,1.5,pl.position.z),rad=b?9:12,hh=b?4.5:7.5;
+ if(mode==='cut'&&cs){cs.t+=dt;const c=cs.c,a=cs.t*.15+.6;fo.lerp(new THREE.Vector3(c.x+(WD?Math.cos(a)*2.4:0),1.6,c.z-(WD?Math.sin(a)*2.4:0)),Math.min(1,dt*3));cam.position.lerp(new THREE.Vector3(c.x+Math.sin(a)*6.5,2.4+Math.sin(cs.t*.4)*.5,c.z+Math.cos(a)*6.5),Math.min(1,dt*2))}else{if(WD&&['battle','talk','duel'].includes(mode)){foc.x+=Math.cos(yaw)*3.6;foc.z-=Math.sin(yaw)*3.6}fo.lerp(foc,Math.min(1,dt*5));cam.position.lerp(new THREE.Vector3(foc.x+Math.sin(yaw)*rad,hh,foc.z+Math.cos(yaw)*rad),Math.min(1,dt*4))}
+ if(shake>0){shake-=dt;cam.position.x+=(Math.random()-.5)*.5;cam.position.y+=(Math.random()-.5)*.5}
+ cam.lookAt(fo);R.render(sc,cam);if(TOUCH){const on=mode!=='play';TJ.classList.toggle('h',on);TR.classList.toggle('h',on)}
+ KC.forEach(e=>{const q=e.dataset.k;e.classList.toggle('on',!!(k[q]||k[AL[q]]))});requestAnimationFrame(loop)}
+let score=0,wins=0,best=0,dex={},AC=null,musOn=1,db=null,U=null,me=null,room=null,peers=[],mi=0,duel=null,aw=0,t0=0,TL=12000,parts=[];
+function burst(p){for(let i=0;i<24;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.12,6,6),new THREE.MeshBasicMaterial({color:[0xffe14d,0xff5d8f,0x5ee0ff][i%3]}));m.position.copy(p);m.position.y+=1;sc.add(m);parts.push({m,v:new THREE.Vector3(Math.random()*6-3,Math.random()*6+2,Math.random()*6-3),l:1.2})}}
+const tone=(f,d,ty,v,t)=>{if(!AC)return;t=t||0;const o=AC.createOscillator(),g=AC.createGain(),n=AC.currentTime+t;o.type=ty||'square';o.frequency.value=f;g.gain.setValueAtTime(v||.07,n);g.gain.exponentialRampToValueAtTime(.001,n+d);o.connect(g);g.connect(AC.destination);o.start(n);o.stop(n+d)};
+const sfx={ok:()=>[523,659,784].forEach((f,i)=>tone(f,.15,'square',.07,i*.08)),no:()=>{tone(180,.3,'sawtooth',.09);tone(110,.3,'sawtooth',.09,.1)},win:()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.25,'triangle',.1,i*.1)),enc:()=>[392,392,523,659].forEach((f,i)=>tone(f,.12,'square',.08,i*.1))};
+const ML=[262,330,392,523,392,330,294,392,440,349,294,349],BL=[196,196,262,196,247,247,330,247];
+sfx.rustle=()=>{if(!AC)return;const b=AC.createBuffer(1,4000,44100),d=b.getChannelData(0);for(let i=0;i<4000;i++)d[i]=(Math.random()*2-1)*(1-i/4000);const u=AC.createBufferSource(),g=AC.createGain();g.gain.value=.15;u.buffer=b;u.connect(g);g.connect(AC.destination);u.start()};
+sfx.hat=()=>tone(6000,.03,'square',.012);sfx.badge=()=>[523,659,784,1047,784,1047,1319,1568].forEach((f,i)=>tone(f,.22,'triangle',.11,i*.11));
+const NS=n=>440*Math.pow(2,(n-69)/12),SO={o:{l:[72,0,74,0,76,0,79,0,76,0,74,0,72,0,67,0,69,0,72,0,74,0,76,0,74,0,72,0,69,0,67,0],b:[48,55,53,55],t:170},b:{l:[69,72,76,72,81,76,72,76,69,72,77,74,71,74,79,74],b:[45,45,41,43],t:115},g:{l:[67,71,74,79,74,71,67,74,72,76,79,84,79,76,72,79],b:[43,43,48,50],t:130}};
+let sn=0;const mus=()=>mode==='battle'||mode==='duel'?(cur&&cur.gym&&mode==='battle'?'g':'b'):'o';
+function song(){const s=SO[mus()];setTimeout(song,s.t);if(!AC||!musOn)return;const i=sn++,n=s.l[i%s.l.length];if(n)tone(NS(n),s.t/1000*1.4,'square',.03);if(i%4===0)tone(NS(s.b[(i>>2)%4]-12),.5,'triangle',.08);if(mus()!=='o'&&i%2===0)sfx.hat()}
+$('bm').onclick=()=>{musOn=!musOn;$('bm').textContent=musOn?'Music: on':'Music: off'};
+const esc=t=>String(t).replace(/</g,'&lt;');
+function ui(f){if(mode!=='play'&&mode!=='menu')return;const pm=mode;mode='ui';f();$('cl').onclick=()=>{if(pm==='menu')menu();else{hide();mode='play'}}}
+async function save(){saveGame(true);best=Math.max(best,score);const lj=best+'|'+caught+'|'+wins+'|'+mpNick;if(lj===lastLB)return;lastLB=lj;try{if(FB){await FB.db.ref('lb/'+FB.uid).set({score:best,caught,wins,n:mpNick});return}if(db&&me)await db.collection('lb').doc(me).set({score:best,caught,wins})}catch(e){}}
+$('bl').onclick=()=>ui(async()=>{show('<h2>Leaderboard</h2><p id="lt">Loading...</p><button id="cl">Close</button>');
+ try{if(FB){const s=await FB.db.ref('lb').orderByChild('score').limitToLast(10).once('value'),a=[];s.forEach(c=>{a.push(c.val())});a.reverse();$('lt').innerHTML=a.length?'<table>'+a.map((v,i)=>'<tr><td>'+(i+1)+'.</td><td>'+esc(String(v.n||'Trainer').slice(0,20))+'</td><td>'+(+v.score||0)+' pts</td><td>'+(+v.wins||0)+' PvP wins</td></tr>').join('')+'</table>':'No scores yet. Catch some Grammons!';return}
+  if(!db)throw 0;const q=await db.collection('lb').orderBy('score','desc').limit(10).get(),pf=U?await U.profiles(q.docs.map(d=>d.id)):{};
+  $('lt').innerHTML=q.empty?'No scores yet. Catch some Grammons!':'<table>'+q.docs.map((d,i)=>{const v=d.data();return'<tr><td>'+(i+1)+'.</td><td>'+esc((pf[d.id]&&pf[d.id].name)||'Trainer')+'</td><td>'+(+v.score||0)+' pts</td><td>'+(+v.wins||0)+' PvP wins</td></tr>'}).join('')+'</table>'}
+ catch(e){$('lt').textContent='The shared leaderboard is unavailable in this view. Your best score this session: '+best}});
+let mpOn=false,mpT=0,mpLast='';const RM=new Map(),names={},COLS=[0xd32f2f,0x1976d2,0x388e3c,0xf57c00,0x7b1fa2,0x00838f,0xc2185b,0x5d4037],mpCol=Math.random()*8|0;let mpNick=(()=>{try{return localStorage.getItem('gq:nick')}catch(e){return null}})()||'Trainer '+(100+Math.random()*900|0);
+let myPeer=null,myCh=null,mpJ0=0,myBub=null,myBubT=0,nearHintT=0,lastLB='';const seenCh=new Set();
+const SAY=['Hi! \u{1F44B}','Good luck!','Duel me? ⚔️','Follow me!','Well played! \u{1F44F}','Need help!','Ha ha! \u{1F604}','Found a shiny! ✨','Bye! \u{1F44B}'];
+const pres=o=>{if(room)room.presence(o).catch(()=>{})};
+const MODES={battle:'in a battle',duel:'in a duel',talk:'talking',tr:'in a battle',ui:'in a menu',cut:'in class',menu:'at the menu',play:'exploring',end:'exploring'};
+function nameOf(id){const p=peers.find(x=>x.peer===id);if(!p)return 'Trainer';if(p.sameTab)return 'You';return names[p.by]||(p.presence&&typeof p.presence.n==='string'&&p.presence.n.slice(0,20))||'Trainer'}
+function bubble(g,txt,old){if(old)g.remove(old);const s=lab(txt,'#ffb02e');s.position.y=4.3;s.scale.set(4.6,1.15,1);g.add(s);return s}
+function mpSync(c){const ids=[],seen=new Set(),now=performance.now();let n=0;
+ c.peers.forEach(p=>{if(p.kind!=='viewer')return;n++;if(p.by&&!(p.by in names)&&!ids.includes(p.by))ids.push(p.by);if(p.sameTab)return;const pr=p.presence||{};
+  // --- duel signalling, carried in presence so every player in the room can take part ---
+  if(myPeer&&pr.ch&&pr.ch.to===myPeer&&typeof pr.ch.seed==='number'&&!seenCh.has(pr.ch.seed)){seenCh.add(pr.ch.seed);incoming(p.peer,pr.ch.seed)}
+  if(myCh&&p.peer===myCh.to&&pr.ac&&pr.ac.to===myPeer&&pr.ac.seed===myCh.seed){const s=myCh.seed;myCh=null;pres({ch:null});startDuel(s,p.peer)}
+  if(myCh&&p.peer===myCh.to&&pr.dc&&pr.dc.to===myPeer&&pr.dc.seed===myCh.seed){myCh=null;pres({ch:null});toast(nameOf(p.peer)+(pr.dc.busy?' is busy right now.':' declined the duel.'))}
+  if(duel&&p.peer===duel.opp&&pr.du&&pr.du.seed===duel.seed){duel.seen=1;duel.os=+pr.du.s||0;if(pr.du.d)duel.od=1;const e=$('dsc');if(e)e.textContent=duel.os;chk()}
+  if(p.isMe||typeof pr.x!=='number'||typeof pr.z!=='number')return;seen.add(p.peer);
+  const cx=Math.max(-230,Math.min(230,pr.x)),cz=Math.max(-230,Math.min(230,pr.z));let r=RM.get(p.peer);
+  if(!r){const g=human(COLS[Math.abs(+pr.c||0)%8]);g.position.set(cx,0,cz);sc.add(g);r={g,tx:cx,tz:cz,tr:0,bd:null,bi:null,lab:null,nm:'',sayT:pr.say?pr.say.t:0,bub:null,bubU:0};RM.set(p.peer,r)}
+  r.tx=cx;r.tz=cz;r.tr=+pr.r||0;const bi=typeof pr.b==='number'&&T[pr.b]?pr.b:null;
+  if(bi!==r.bi){if(r.bd){sc.remove(r.bd);r.bd=null}r.bi=bi;if(bi!==null){r.bd=animal(T[bi]);r.bd.scale.setScalar(.75);r.bd.position.set(cx-2,0,cz-2);sc.add(r.bd)}}
+  const nm=nameOf(p.peer)+' ★'+(+pr.bd||0);if(nm!==r.nm){if(r.lab)r.g.remove(r.lab);r.nm=nm;r.lab=lab(nm,'#ffffff');r.lab.position.y=3.1;r.g.add(r.lab)}
+  if(pr.say&&pr.say.t!==r.sayT){r.sayT=pr.say.t;const tx=SAY[pr.say.i|0];if(tx){r.bub=bubble(r.g,tx,r.bub);r.bubU=now+5000;if(Math.hypot(r.tx-pl.position.x,r.tz-pl.position.z)<60||(duel&&duel.opp===p.peer))toast(nameOf(p.peer)+': '+tx)}}
+ });
+ RM.forEach((r,id)=>{if(!seen.has(id)){sc.remove(r.g);if(r.bd)sc.remove(r.bd);RM.delete(id)}});
+ if(now-mpJ0>4000)(c.joined||[]).forEach(p=>{if(p.kind==='viewer'&&!p.isMe)setTimeout(()=>toast(nameOf(p.peer)+' joined the world!'),400)});
+ (c.left||[]).forEach(p=>{if(duel&&p.peer===duel.opp){duel.ff=1;chk()}if(myCh&&p.peer===myCh.to){myCh=null;pres({ch:null});toast(nameOf(p.peer)+' left the world.')}});
+ $('bpl').textContent='Players ('+Math.max(1,n)+')';
+ if(ids.length&&U)U.profiles(ids).then(ps=>{ids.forEach(id=>{names[id]=(ps[id]&&ps[id].name)||''});mpSync({peers:room.peers()})}).catch(()=>{ids.forEach(id=>{names[id]=''})})}
+function challenge(peer){if(!room){toast('Multiplayer is not available in this view.');return}if(duel){toast('Finish your duel first!');return}if(myCh){toast('Still waiting for '+nameOf(myCh.to)+'...');return}
+ const seed=1+Math.random()*1e9|0;myCh={to:peer,seed,t:performance.now()};pres({ch:{to:peer,seed},ac:null,dc:null});toast('Duel challenge sent to '+nameOf(peer)+'!')}
+function incoming(peer,seed){if(mode!=='play'||duel||myCh){pres({dc:{to:peer,seed,busy:1}});return}
+ mode='ui';sfx.enc();show('<h2>PvP challenge!</h2><p><b id="chn"></b> wants a 6-question quiz duel. The first to answer more correctly wins 300 points.</p><button id="ya">Accept</button><button id="cl">Decline</button>');$('chn').textContent=nameOf(peer);
+ $('ya').onclick=()=>{const p=room.peers().find(x=>x.peer===peer),pr=p&&p.presence||{};if(!pr.ch||pr.ch.seed!==seed||pr.ch.to!==myPeer){hide();mode='play';toast('That challenge has expired.');return}pres({ac:{to:peer,seed},dc:null});startDuel(seed,peer)};
+ $('cl').onclick=()=>{pres({dc:{to:peer,seed}});hide();mode='play'};$('ya').focus()}
+function sayIt(i){if(!room){toast('Chat needs multiplayer, which is not available in this view.');return}pres({say:{t:Date.now(),i}});myBub=bubble(pl,SAY[i],myBub);myBubT=performance.now()+5000}
+function chatMenu(){ui(()=>{show('<h2>Quick chat</h2><p class="sm">Pick a message. It pops up above your trainer for everyone nearby to see.</p>'+SAY.map((s,i)=>'<button data-s="'+i+'">'+s+'</button>').join('')+'<p><button id="cl">Close</button></p>');document.querySelectorAll('#bx button[data-s]').forEach(b=>b.onclick=()=>{sayIt(+b.dataset.s);hide();mode='play'})})}
+function nearest(){let b=null,bd=5;RM.forEach((r,id)=>{const d=Math.hypot(r.g.position.x-pl.position.x,r.g.position.z-pl.position.z);if(d<bd){bd=d;b=id}});return b}
+function mpTick(T0,dt){const now=performance.now();
+ if(room&&mpOn){if(now-mpT>(FB?250:130)){mpT=now;const o={n:mpNick,x:+pl.position.x.toFixed(1),z:+pl.position.z.toFixed(1),r:+pl.rotation.y.toFixed(2),c:mpCol,b:buddy&&buddy.userData.si>=0?buddy.userData.si:null,m:mode,sc:score,bd:bdg.size,cg:caught},j=JSON.stringify([o.x,o.z,o.r,o.b,o.m,o.sc,o.bd,o.cg]);if(j!==mpLast){mpLast=j;room.presence(o).catch(()=>{})}}}
+ if(myCh&&now-myCh.t>30000){toast('No answer from '+nameOf(myCh.to)+'.');myCh=null;pres({ch:null})}
+ if(duel&&!duel.seen&&!duel.ff&&now-duel.t0>12000){duel.ff=2;chk()}
+ if(myBub&&now>myBubT){pl.remove(myBub);myBub=null}
+ if(mode==='play'&&room&&now>nearHintT){const id=nearest();if(id){nearHintT=now+15000;toast(TOUCH?'Open Players to duel '+nameOf(id)+'!':'Press F to duel '+nameOf(id)+', T to chat')}}
+ RM.forEach(r=>{const g=r.g,k1=Math.min(1,dt*9);g.position.x+=(r.tx-g.position.x)*k1;g.position.z+=(r.tz-g.position.z)*k1;const mv=Math.hypot(r.tx-g.position.x,r.tz-g.position.z)>.15;g.rotation.y+=Math.atan2(Math.sin(r.tr-g.rotation.y),Math.cos(r.tr-g.rotation.y))*Math.min(1,dt*10);g.position.y=mv?Math.abs(Math.sin(T0*12))*.08:0;{const u=g.userData;if(u.legs){const w=mv?Math.sin(T0*12)*.6:0;u.legs[0].rotation.x=w;u.legs[1].rotation.x=-w;u.arms[0].rotation.x=-w*.8;u.arms[1].rotation.x=w*.8}}
+  if(r.bub&&now>r.bubU){g.remove(r.bub);r.bub=null}
+  if(r.bd){const k3=Math.min(1,dt*3);r.bd.position.x+=(r.tx-Math.sin(r.tr)*2.6-r.bd.position.x)*k3;r.bd.position.z+=(r.tz-Math.cos(r.tr)*2.6-r.bd.position.z)*k3;r.bd.rotation.y=r.tr;r.bd.position.y=mv?Math.abs(Math.sin(T0*5))*.2:0}
+  g.visible=Math.hypot(g.position.x-pl.position.x,g.position.z-pl.position.z)<200;if(r.bd)r.bd.visible=g.visible});}
+$('bpl').onclick=()=>ui(()=>{const vs=peers.filter(p=>p.kind==='viewer');
+ show('<h2>Players online</h2>'+(room?'<table>'+vs.map((p,i)=>{const pr=p.presence||{};return '<tr><td data-n="'+i+'"></td><td>'+(+pr.sc||0)+' pts</td><td>'+(+pr.bd||0)+' badges</td><td class="sm">'+(MODES[pr.m]||'joining')+'</td><td>'+(p.isMe?'':'<button data-i="'+i+'" data-a="g">Go to</button><button data-i="'+i+'" data-a="d">Duel</button>')+'</td></tr>'}).join('')+'</table><p class="sm">Everyone who opens this game shares the same world. Walk up to someone and press F to duel, or T to chat.</p>':'<p>Multiplayer is not connected. If you set up this copy of the game, check the Firebase setup steps.</p>')+'<p><button id="cl">Close</button></p>');
+ document.querySelectorAll('#bx td[data-n]').forEach(td=>{const p=vs[+td.dataset.n];td.textContent=nameOf(p.peer)+(p.sameTab?' (you)':p.isMe?' (your other tab)':'')+(p.guest?' (guest)':'')});
+ document.querySelectorAll('#bx button[data-i]').forEach(b=>b.onclick=()=>{const p=vs[+b.dataset.i],r=RM.get(p.peer);if(b.dataset.a==='g'){if(r){pl.position.set(r.tx+2,0,r.tz+2);hide();mode='play'}else toast('That trainer has not entered the world yet.')}else{challenge(p.peer);hide();mode='play'}})});
+let FB=null;const FB_ON=()=>!!(window.firebase&&FIREBASE_CONFIG.apiKey&&!/PASTE/.test(FIREBASE_CONFIG.apiKey));
+// Firebase stand-in for the live room: each open tab is one entry under players/<uid>_<tab>, removed when the tab closes.
+async function fbStart(){if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);const cr=await firebase.auth().signInAnonymously(),uid=cr.user.uid,fdb=firebase.database();FB={db:fdb,uid};me=uid;
+ const pid=uid+'_'+Math.random().toString(36).slice(2,8),ref=fdb.ref('players'),mine=ref.child(pid),map=new Map();let full={},hs=[],J=[],L=[],UP=[],tm=0,snap=Object.freeze([]);
+ const mk=(k,v)=>Object.freeze({peer:k,by:k.split('_')[0],isMe:k.split('_')[0]===uid,sameTab:k===pid,kind:'viewer',guest:false,presence:Object.freeze(v&&typeof v==='object'?v:{}),updatedAt:Date.now()});
+ const flush=()=>{tm=0;snap=Object.freeze([...map.values()]);const c={peers:snap,joined:J,left:L,updated:UP};J=[];L=[];UP=[];hs.forEach(h=>{try{h(c)}catch(e){console.error(e)}})},q=()=>{if(!tm)tm=setTimeout(flush,40)};
+ ref.on('child_added',s=>{const p=mk(s.key,s.val());map.set(s.key,p);J.push(p);q()});
+ ref.on('child_changed',s=>{const p=mk(s.key,s.val());map.set(s.key,p);UP.push(p);q()});
+ ref.on('child_removed',s=>{const p=map.get(s.key);if(p){map.delete(s.key);L.push(p);q()}});
+ fdb.ref('.info/connected').on('value',s=>{if(s.val()){mine.onDisconnect().remove();if(Object.keys(full).length)mine.set(full).catch(()=>{})}});
+ return{presence(o){const d={};for(const k in o){const v=o[k]===undefined?null:o[k];if(JSON.stringify(v)===JSON.stringify(k in full?full[k]:null))continue;d[k]=v;if(v===null)delete full[k];else full[k]=v}return Object.keys(d).length?mine.update(d):Promise.resolve()},onPeers(h){hs.push(h);setTimeout(()=>h({peers:snap,joined:snap,left:[],updated:[]}),0);return()=>{}},peers:()=>snap}}
+function setNick(){const e=$('nk'),v=(e&&e.value||'').replace(/[<>&"]/g,'').replace(/\s+/g,' ').trim().slice(0,16);if(v){mpNick=v;try{localStorage.setItem('gq:nick',v)}catch(x){}pres({n:v})}}
+(async()=>{try{
+ if(FB_ON())room=await fbStart();
+ else{if(typeof claude==='undefined')return;
+  try{db=await claude.use('db')}catch(e){}
+  try{U=await claude.use('user');me=U?await U.id():null}catch(e){}
+  room=await claude.use('room')}
+ if(!room)return;mpJ0=performance.now();
+ room.onPeers(c=>{peers=c.peers.slice();const s=peers.find(x=>x.sameTab);if(s)myPeer=s.peer;mpSync(c)},()=>{});
+ room.presence({n:mpNick,c:mpCol}).catch(()=>{})}catch(e){console.warn('Multiplayer unavailable',e);room=null;if(FB_ON())setTimeout(()=>toast('Multiplayer could not connect. Check the Firebase setup steps.'),1500)}})();
+$('bv').onclick=()=>ui(()=>{const o=peers.filter(x=>x.kind==='viewer'&&!x.isMe);
+ show('<h2>PvP Duel</h2>'+(room?(o.length?o.map((x,i)=>'<button class="o" data-i="'+i+'"></button>').join(''):'<p>No other trainers are online right now. Share the game link with a classmate, ask them to open it, then try again.</p>'):'<p>PvP needs multiplayer, which is not connected right now.</p>')+'<p><button id="cl">Close</button></p>');
+ document.querySelectorAll('#bx .o').forEach(b=>{const x=o[+b.dataset.i],pr=x.presence||{};b.textContent='Challenge '+nameOf(x.peer)+' ('+(MODES[pr.m]||'joining')+')';b.onclick=()=>{challenge(x.peer);hide();mode='play'}})});
+$('bch').onclick=chatMenu;
+function startDuel(seed,opp){stopDex();hide();let r=seed||1;const rn=()=>(r=(r*1664525+1013904223)>>>0)/4294967296,a=BK.flat().map(q=>[rn(),q]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]).slice(0,6);duel={seed,a,i:0,s:0,opp,os:0,od:0,me:0,seen:0,ff:0,t0:performance.now(),nm:nameOf(opp)};pres({du:{seed,s:0,d:0}});mode='duel';sfx.enc();dq()}
+function dq(){if(!duel)return;const q=duel.a[duel.i],o=q[1].map((t,i)=>({t,c:i===q[2]})).sort(()=>Math.random()-.5),bp=$('bp');bp.className='';
+ bp.innerHTML='<div class="bh"><b>PvP Duel</b><span>You '+duel.s+' - <span id="dsc">'+duel.os+'</span> <span id="dnm"></span></span><span class="sm">Q'+(duel.i+1)+'/6</span></div><div class="s">'+q[0].replace('___','_____')+'</div>'+o.map((x,i)=>'<button class="o" data-c="'+(x.c?1:0)+'">'+(i+1)+'. '+x.t+'</button>').join('');$('dnm').textContent=nameOf(duel.opp);
+ bp.querySelectorAll('.o').forEach(b=>b.onclick=()=>{if(!duel)return;const ok=b.dataset.c==='1';bp.querySelectorAll('.o').forEach(x=>{x.disabled=true;if(x.dataset.c==='1')x.classList.add('ok')});if(ok){duel.s++;sfx.ok()}else{b.classList.add('no');sfx.no()}
+  duel.i++;const fin=duel.i>=6;pres({du:{seed:duel.seed,s:duel.s,d:fin?1:0}});if(fin)duel.me=1;setTimeout(()=>fin?chk():dq(),900)})}
+function chk(){if(!duel||duel.over)return;const ff=duel.ff;if(!ff){if(!duel.me)return;if(!duel.od){$('bp').innerHTML='<p>Finished! You scored '+duel.s+'/6. Waiting for '+esc(duel.nm)+'...</p><button id="lv" class="sm">Leave duel</button>';$('lv').onclick=()=>{duel=null;pres({du:null});$('bp').className='h';mode='play'};return}}
+ const D=duel;D.over=1;duel=null;const w=ff===1||(!ff&&D.s>D.os),t=!ff&&D.s===D.os,nm=esc(D.nm);$('bp').className='h';stopDex();mode='ui';
+ if(ff===2){show('<h2>Duel cancelled</h2><p>'+nm+' did not start the duel.</p><button id="cl">Back to the world</button>')}
+ else{if(w){wins++;score+=300;sfx.win()}save();hud();show('<h2>'+(w?'YOU WIN!':t?'DRAW':'YOU LOSE')+'</h2><p>'+(ff===1?nm+' left the duel. You win '+D.s+'/6!':'Final score: You '+D.s+' - '+D.os+' '+nm)+'</p>'+(w?'<p>+300 points</p>':'')+'<button id="cl">Back to the world</button>')}
+ $('cl').onclick=()=>{hide();mode='play'};pres({du:null})}
+const TJ=$('tj'),TR=$('tr'),TK=$('tk');let jp=null,lx=null;
+const jm=e=>{const r=TJ.getBoundingClientRect();let dx=e.clientX-(r.left+65),dy=e.clientY-(r.top+65);const l=Math.hypot(dx,dy);if(l>50){dx*=50/l;dy*=50/l}TK.style.transform='translate('+dx+'px,'+dy+'px)';k.a=dx<-15?1:0;k.d=dx>15?1:0;k.w=dy<-15?1:0;k.s=dy>15?1:0};
+TJ.onpointerdown=e=>{jp=e.pointerId;TJ.setPointerCapture(jp);jm(e)};TJ.onpointermove=e=>{if(e.pointerId===jp)jm(e)};
+TJ.onpointerup=TJ.onpointercancel=()=>{jp=null;TK.style.transform='';k.a=k.d=k.w=k.s=0};
+TR.onpointerdown=e=>{k.shift=1;TR.setPointerCapture(e.pointerId)};TR.onpointerup=TR.onpointercancel=()=>{k.shift=0};
+R.domElement.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')lx=e.clientX});
+R.domElement.addEventListener('pointermove',e=>{if(e.pointerType==='touch'&&lx!==null){yaw-=(e.clientX-lx)*.008;lx=e.clientX}});
+addEventListener('pointerup',()=>{lx=null});
+rs();const ZN=[],COL=[],MEADOW={k:'grass',n:'Meadow',els:[2,8]},HAB=['Caves','Lakes and shores','Meadows','Abandoned power stations','Snowy mountains','Caves','Mountain peaks','Dark forests','Meadows','Dark forests','Caves','Mountain slopes'];
+[['cave',-110,-100,24,[0,5,10],'#3a3a40','Cave'],['cave',95,-110,24,[0,5,10],'#3a3a40','Cave'],['cave',110,100,24,[0,5,10],'#3a3a40','Cave'],['power',-120,120,26,[3],'#5a5a50','Abandoned Power Station'],['power',150,-150,26,[3],'#5a5a50','Abandoned Power Station'],['lake',-100,10,26,[1],'#2f7fc0','Lake Shore'],['lake',20,-95,24,[1],'#2f7fc0','Lake Shore'],['lake',80,0,22,[1],'#2f7fc0','Lake Shore'],['mtn',-170,-120,30,[6,4,11],'#cfd8e0','Mountains'],['mtn',180,-30,30,[6,4,11],'#cfd8e0','Mountains'],['mtn',-95,180,30,[6,4,11],'#cfd8e0','Mountains'],['dark',-60,70,26,[7,9],'#241a3a','Dark Forest'],['dark',60,70,26,[7,9],'#241a3a','Dark Forest']].forEach(q=>ZN.push({k:q[0],x:q[1],z:q[2],r:q[3],els:q[4],col:q[5],n:q[6]}));
+function mkZone(z){const g=new THREE.Group();g.position.set(z.x,0,z.z);sc.add(g);const A=(geo,c,x,y,zz)=>add(geo,c,x,y,zz,g),disc=(r,c,y)=>{const d=A(new THREE.CircleGeometry(r,40),c,0,y,0);d.rotation.x=-1.57;return d},R=z.r;
+ if(z.k==='cave'){disc(R,0x4a4545,.05);disc(R*.55,0x38333a,.06);for(let i=0;i<14;i++){const a=i*.45,r=R*(.5+.45*((i*37)%10)/10);A(CN(.6+((i*13)%5)*.15,2.5+((i*7)%4)),0x6a6262,Math.cos(a)*r,1.3,Math.sin(a)*r)}
+  A(BX(3,6,3),0x5a5252,-4,3,-R*.3);A(BX(3,6,3),0x5a5252,4,3,-R*.3);A(BX(11,2.5,3.4),0x5a5252,0,6.5,-R*.3);A(BX(5,5,1),0x0e0c10,0,2.5,-R*.3+1);const lv=disc(2.4,0xff5a1a,.07);lv.position.set(8,.07,6);lv.material.emissive=new THREE.Color(0xff3300)}
+ if(z.k==='power'){disc(R,0x6a6a62,.05);for(const x of[-12,12])A(CY(.4,.5,12),0x555560,x,6,-6);A(BX(26,.4,.4),0x555560,0,11.5,-6);A(CY(3,3,7),0x8a5a3a,-6,3.5,6);A(BX(10,5,7),0x6a6258,8,2.5,6);A(BX(10,.5,7.4),0x4a443c,8,5.2,6);for(let i=0;i<10;i++)A(BX(.15,2,.15),0x777770,-R*.8+i*R*.18,1,R*.85);
+  const lp=add(SG(.4),0xfff3a0,-3,6,0,g);lp.material.emissive=new THREE.Color(0xaaaa44);FXA.push(t=>{lp.visible=Math.sin(t*23)>-.1});const bx=add(BX(.3,2,.3),0xfff03a,12,10,-6,g);FXA.push(t=>{bx.visible=Math.sin(t*17)>.3})}
+ if(z.k==='lake'){const w=disc(R,0x2f8fd8,.08);w.material.transparent=true;FXA.push(t=>{w.material.opacity=.8+.1*Math.sin(t*2+z.x)});const sd=A(new THREE.RingGeometry(R,R+7,40),0xe6d6a0,0,.04,0);sd.rotation.x=-1.57;for(let i=0;i<22;i++){const a=i*.286;A(CN(.12,1.4),0x4a8a3a,Math.cos(a)*(R+1.5+(i%3)),.7,Math.sin(a)*(R+1.5+(i%3)))}COL.push([z.x,z.z,R-1])}
+ if(z.k==='mtn'){[[0,0,9,22],[-9,5,7,15],[8,6,6,12]].forEach(p=>{A(CN(p[2],p[3]),0x7a7a88,p[0],p[3]/2,p[1]);A(CN(p[2]*.36,p[3]*.34),0xffffff,p[0],p[3]*.83,p[1]);COL.push([z.x+p[0],z.z+p[1],p[2]*.8])});for(let i=0;i<10;i++){const a=i*.63;A(new THREE.DodecahedronGeometry(1+i%3*.4,0),0x8a8a92,Math.cos(a)*(R*.7),.6,Math.sin(a)*(R*.7))}}
+ if(z.k==='dark'){disc(R,0x1d1630,.05);for(let i=0;i<34;i++){const a=Math.random()*6.283,r=Math.sqrt(Math.random())*R*.95,x=z.x+Math.cos(a)*r,zz=z.z+Math.sin(a)*r,t=new THREE.Group();add(CY(.25,.4,2.8),0x2a1f1a,0,1.4,0,t);add(FJ(1.7,1),0x2a2050,0,3.6,0,t);add(FJ(1.2,1),0x3a2a6a,.5,4.6,.2,t);t.position.set(x,0,zz);t.scale.setScalar(.9+Math.random()*.6);sc.add(t);trees.push([x,zz])}}}
+ZN.forEach(mkZone);
+function zoneAt(x,z){for(const q of ZN){const d=Math.hypot(x-q.x,z-q.z);if(q.k==='lake'?d<q.r+7:d<q.r)return q}for(const g of GP)if(Math.hypot(x-g[0],z-g[1])<g[2])return MEADOW;return null}
+let lastZ=null,svT=0;
+function worldTick(T0){FXA.forEach(f=>f(T0));if(mode==='play'){const zn=zoneAt(pl.position.x,pl.position.z);if(zn!==lastZ){lastZ=zn;if(zn)toast('Habitat: '+zn.n+' ('+zn.els.map(e=>ELS[e][0]).join(', ')+' Grammons)')}if(performance.now()-svT>15000){svT=performance.now();saveGame(true)}}}
+const SK='gq:'+document.title;
+function hasSave(){try{return !!localStorage.getItem(SK)}catch(e){return false}}
+function saveGame(q){if(q&&caught<1&&bdg.size<1)return false;try{localStorage.setItem(SK,JSON.stringify({v:1,t:Date.now(),score,caught,dex,bdg:[...bdg],lgw,best,wins,buddy:buddy?buddy.userData.si:null,x:+pl.position.x.toFixed(1),z:+pl.position.z.toFixed(1),dn:NP.filter(n=>n.done&&(n.gym||n.shrine)).map(n=>n.gym||('S'+n.li))}));if(!q)toast('Game saved!');return true}catch(e){if(!q)toast('Saving is not available in this browser.');return false}}
+function setBuddy(i){if(buddy){sc.remove(buddy);buddy=null}buddy=animal(T[i]);buddy.userData.si=i;buddy.scale.setScalar(.75);buddy.position.set(pl.position.x-2,0,pl.position.z-2);sc.add(buddy)}
+function cont(){setNick();let d=null;try{d=JSON.parse(localStorage.getItem(SK))}catch(e){}if(!d){start();return}
+ mpOn=true;gId=null;AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.resume)AC.resume();if(!sgo){sgo=1;song()}
+ score=d.score|0;caught=d.caught|0;wins=d.wins|0;best=d.best|0;dex=d.dex||{};bdg.clear();(d.bdg||[]).forEach(x=>bdg.add(x));lgw=d.lgw|0;spawnAll();
+ NP.forEach(n=>{n.done=0;const key=n.gym||(n.shrine?'S'+n.li:null);if(key&&(d.dn||[]).includes(key)){n.done=1;if(!n.shrine)n.g.children.forEach(c=>{if(c.material&&c.material.color)c.material.color.multiplyScalar(.5)})}});
+ if(buddy){sc.remove(buddy);buddy=null}pl.position.set(d.x||0,0,d.z||0);if(typeof d.buddy==='number'&&T[d.buddy])setBuddy(d.buddy);hud();hide();mode='play';toast('Welcome back! Your progress was loaded.')}
+addEventListener('pagehide',()=>saveGame(true));document.addEventListener('visibilitychange',()=>{if(document.hidden)saveGame(true)});
+$('bsv').onclick=()=>{if(mode==='play'||mode==='menu')saveGame()};
+let R2=null,SC2=null,CM2=null,THB={},dxRAF=0,dxG=null,dexPm='play';
+function r2(){if(R2)return;R2=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});R2.setClearColor(0x000000,0);SC2=new THREE.Scene();SC2.add(new THREE.HemisphereLight(0xffffff,0x667788,1.05));const L=new THREE.DirectionalLight(0xffffff,.9);L.position.set(3,6,4);SC2.add(L);CM2=new THREE.PerspectiveCamera(35,1,.1,60)}
+function cam2(t){const v=t.k==='d'?[7,4,8.5,1.4]:t.k==='b'?[3.6,2.6,4.8,1.3]:t.k==='t'||t.k==='f'?[3.4,2.2,4.2,.7]:[4.4,2.8,5.2,1.1];CM2.position.set(v[0],v[1],v[2]);CM2.lookAt(0,v[3],0)}
+function pal(i,sh){return sh?Object.assign({},T[i],{c:0xffd54a,d:0xfff1b0}):T[i]}
+function thumb(i,sh){const key=i+(sh?'*':'');if(THB[key])return THB[key];r2();R2.setSize(150,150);const t=pal(i,sh),g=animal(t);g.rotation.y=.5;SC2.add(g);cam2(t);R2.render(SC2,CM2);SC2.remove(g);return THB[key]=R2.domElement.toDataURL()}
+function stopDex(){cancelAnimationFrame(dxRAF);if(dxG&&SC2)SC2.remove(dxG);dxG=null;if(R2&&R2.domElement.parentNode)R2.domElement.parentNode.removeChild(R2.domElement)}
+function dexList(){stopDex();const n=T.filter(t=>dex[t.n]).length;
+ show('<h2>Grammodex ('+n+'/'+T.length+')</h2><p class="sm">Badges: '+(bdg.size?[...bdg].join(', '):'none yet')+'. Tap a Grammon to see it up close or make it your buddy.</p>'+T.map((t,i)=>dex[t.n]?'<div class="gc dc'+(t.lg?' lg':'')+'" data-i="'+i+'"><img src="'+thumb(i,dex[t.n+'*']&&!dex[t.n+'#'])+'" alt="'+t.n+'"><b style="color:#'+t.c.toString(16).padStart(6,'0')+'">'+t.n+(dex[t.n+'*']?' &#9733;':'')+(buddy&&buddy.userData.si===i?' (buddy)':'')+'</b><br>'+t.ty+' x'+dex[t.n]+'</div>':'<div class="gc"><b>???</b><br>'+(t.lg?'Legendary':'Not caught yet')+'</div>').join('')+'<p><button id="cl">Close</button></p>');
+ $('bx').className='box wide';$('cl').onclick=()=>{stopDex();if(dexPm==='menu')menu();else{hide();mode='play'}};document.querySelectorAll('#bx .dc').forEach(c=>c.onclick=()=>dexDetail(+c.dataset.i))}
+function dexDetail(i){const t=T[i],sh=!!dex[t.n+'*'];stopDex();r2();R2.setSize(240,240);
+ show('<h2>'+t.n+(sh?' &#9733;':'')+'</h2><div id="dv"></div><p>Type: <b>'+t.ty+'</b><br>Habitat: <b>'+(t.lg?'Time Shrines':HAB[t.el])+'</b><br>Caught: <b>'+dex[t.n]+'</b>'+(sh?' (shiny!)':'')+(t.st?'<br>Asks about: <b>'+t.st.map(k=>ST[k]).join(' and ')+'</b>':'<br>Asks about: <b>every topic</b>')+'</p><button id="bb">'+(buddy&&buddy.userData.si===i?'Current buddy':'Make buddy')+'</button><button id="bk">Back</button>');
+ $('bx').className='box';$('dv').appendChild(R2.domElement);dxG=animal(pal(i,sh));SC2.add(dxG);cam2(t);const lp=()=>{dxG.rotation.y+=.02;R2.render(SC2,CM2);dxRAF=requestAnimationFrame(lp)};lp();
+ $('bb').onclick=()=>{setBuddy(i);toast(t.n+' is now your buddy!');$('bb').textContent='Current buddy';saveGame(true)};$('bk').onclick=dexList}
+$('bd').onclick=()=>{if(mode!=='play'&&mode!=='menu')return;dexPm=mode;mode='ui';dexList()};
+const GA=new THREE.Group(),TRL=[];{const mt=new THREE.MeshBasicMaterial({color:0xffd23a,depthTest:false,transparent:true,opacity:.95}),h=new THREE.Mesh(new THREE.ConeGeometry(.6,1.2,4),mt);h.rotation.x=Math.PI/2;h.position.z=.9;const sf=new THREE.Mesh(new THREE.BoxGeometry(.38,.22,1),mt);sf.position.z=-.35;h.renderOrder=sf.renderOrder=20;GA.add(h,sf);GA.visible=false;sc.add(GA)}
+for(let i=0;i<16;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.3,10,8),new THREE.MeshBasicMaterial({color:0xffe066,transparent:true,opacity:.9}));m.visible=false;sc.add(m);TRL.push(m)}
+const MM=$('mm').getContext('2d');let gId=null,gT=0,gTxt='';
+{const c=$('gp').getContext('2d');c.fillStyle='#10223a';c.fillRect(0,0,56,56);c.fillStyle='#f0c8a0';c.beginPath();c.ellipse(28,33,13,15,0,0,7);c.fill();c.fillStyle='#38b84a';c.beginPath();c.moveTo(13,32);[[10,18],[16,22],[15,8],[22,17],[26,3],[31,16],[38,5],[40,17],[47,10],[44,24],[46,33]].forEach(q=>c.lineTo(q[0],q[1]));c.lineTo(42,30);c.lineTo(28,22);c.lineTo(16,30);c.closePath();c.fill();c.fillStyle='#222';c.fillRect(21,31,4,3);c.fillRect(31,31,4,3);c.strokeStyle='#b04040';c.lineWidth=2;c.beginPath();c.moveTo(32,27);c.lineTo(33,37);c.stroke();c.fillStyle='#ffd700';c.fillRect(13,36,3,3);c.fillRect(13,40,3,3);c.fillStyle='#8a3a3a';c.fillRect(24,42,8,2)}
+$('gd').onclick=()=>{if(mode==='play')say(gTxt)};
+function target(){let r=null;const px=pl.position.x,pz=pl.position.z,mk=(n,kind,col)=>{const dx=n.g.position.x-px,dz=n.g.position.z-pz;return{id:kind+(n.gym||n.nm),nm:n.shrine||n.lg?n.nm:n.gym,kind,x:n.g.position.x,z:n.g.position.z,d:Math.hypot(dx,dz),b:Math.atan2(dx,-dz),col}};
+ for(const n of NP)if(n.shrine&&!n.done&&bdg.size>=n.need){const c=mk(n,'shrine',0xffd700);if(!r||c.d<r.d)r=c}
+ const g=bdg.size<8?NP.find(q=>q.gym&&!q.lg&&!bdg.has(q.gym)):NP.find(q=>q.lg===lgw+1);
+ if(g){const c=mk(g,g.lg?'league':'gym',0xffd54f);if(!r||c.d<r.d)r=c}return r}
+function gtext(t){if(!t)return 'You are the Grammon Master! Explore freely, catch them all and chat with your friends.';const w=DIRW[(Math.round(t.b/(Math.PI/4))+8)%8],d=Math.round(t.d);
+ return t.kind==='shrine'?'A Time Shrine is awake! The legendary '+t.nm+' waits '+d+' m to the '+w+'. Follow the golden arrow above your head.':t.kind==='league'?'Enter the Indigo League Hall, '+d+' m to the '+w+'. Follow the arrow and the glowing trail!':'Next challenge: the '+t.nm+', '+d+' m to the '+w+'. Follow the arrow and the glowing trail!'}
+function drawMM(t,T0){const c=MM,px=pl.position.x,pz=pl.position.z,cy=Math.cos(yaw),sy=Math.sin(yaw),k=80/120;c.clearRect(0,0,160,160);c.save();c.beginPath();c.arc(80,80,76,0,7);c.clip();c.fillStyle='#17331f';c.fillRect(0,0,160,160);
+ const P2=(x,z)=>{const dx=x-px,dz=z-pz;return[80+(dx*cy-dz*sy)*k,80+(dx*sy+dz*cy)*k]};
+ c.fillStyle='#2c5a2f';GP.forEach(g=>{const q=P2(g[0],g[1]);c.beginPath();c.arc(q[0],q[1],g[2]*k,0,7);c.fill()});ZN.forEach(z=>{const q=P2(z.x,z.z);c.fillStyle=z.col;c.beginPath();c.arc(q[0],q[1],(z.k==='lake'?z.r+7:z.r)*k,0,7);c.fill()});
+ {const q=P2(28,18);c.fillStyle='#2f7fc0';c.beginPath();c.arc(q[0],q[1],9*k,0,7);c.fill()}
+ const dot=(x,z,col,r,sq)=>{const q=P2(x,z);if((q[0]-80)*(q[0]-80)+(q[1]-80)*(q[1]-80)>5776)return;c.fillStyle=col;if(sq)c.fillRect(q[0]-r,q[1]-r,r*2,r*2);else{c.beginPath();c.arc(q[0],q[1],r,0,7);c.fill()}};
+ NP.forEach(n=>{const g=n.g.position;if(n.shrine)dot(g.x,g.z,n.done?'#4fffd0':bdg.size>=n.need?'#ffd700':'#777',4.5);else if(n.talk)dot(g.x,g.z,'#ffffff',3.5);else if(n.gym||n.lg)dot(g.x,g.z,n.lg?'#ffd54f':'#'+ELS[n.el][1].toString(16).padStart(6,'0'),5,1);else if(!n.done)dot(g.x,g.z,'#5ee0ff',2.5)});
+ RM.forEach(r=>dot(r.g.position.x,r.g.position.z,'#ffffff',3.5));
+ if(t){const q=P2(t.x,t.z),dx=q[0]-80,dy=q[1]-80;if(Math.hypot(dx,dy)<68){c.strokeStyle='#ffd23a';c.lineWidth=2;c.beginPath();c.arc(q[0],q[1],8+2*Math.sin(T0*6),0,7);c.stroke()}else{const a=Math.atan2(dy,dx);c.save();c.translate(80+Math.cos(a)*68,80+Math.sin(a)*68);c.rotate(a);c.fillStyle='#ffd23a';c.beginPath();c.moveTo(7,0);c.lineTo(-5,-6);c.lineTo(-5,6);c.fill();c.restore()}}
+ c.restore();const fx=Math.sin(pl.rotation.y),fz=Math.cos(pl.rotation.y),a=Math.atan2(fx*cy-fz*sy,-(fx*sy+fz*cy));c.save();c.translate(80,80);c.rotate(a);c.fillStyle='#fff';c.strokeStyle='#000';c.lineWidth=2;c.beginPath();c.moveTo(0,-8);c.lineTo(6,7);c.lineTo(0,4);c.lineTo(-6,7);c.closePath();c.fill();c.stroke();c.restore();
+ c.fillStyle='#ff5d5d';c.font='bold 13px sans-serif';c.textAlign='center';c.fillText('N',80+sy*66,85-cy*66)}
+function guideTick(T0,dt){const play=mode==='play',t=play?target():null;$('mm').classList.toggle('h',!play);$('gd').classList.toggle('h',!play);
+ if(!play){GA.visible=false;TRL.forEach(m=>{m.visible=false});return}
+ const px=pl.position.x,pz=pl.position.z;
+ if(t&&t.d>7){const dx=t.x-px,dz=t.z-pz;GA.visible=true;GA.position.set(px,4.1+Math.sin(T0*4)*.25,pz);GA.rotation.y=Math.atan2(dx,dz);const n=Math.max(0,Math.min(16,Math.floor((t.d-6)/3.4)));TRL.forEach((m,i)=>{m.visible=i<n;if(i<n){const l=4+i*3.4;m.position.set(px+dx/t.d*l,.45,pz+dz/t.d*l);m.scale.setScalar(.55+.45*Math.max(0,Math.sin(T0*5-i*.8)))}})}else{GA.visible=false;TRL.forEach(m=>{m.visible=false})}
+ if(performance.now()-gT>250){gT=performance.now();const q=gtext(t);if(q!==gTxt){gTxt=q;$('gt').textContent=q}}
+ if(t){if(gId===null)gId=t.id;else if(t.id!==gId){gId=t.id;say(t.kind==='shrine'?'A Time Shrine has awakened! Follow the arrow to meet the legendary '+t.nm+'.':'Well done, trainer! Your next destination is the '+t.nm+'. Follow the arrow above your head.')}}
+ drawMM(t,T0)}
+hud();menu();spawnAll();loop();
+</script></body></html>
